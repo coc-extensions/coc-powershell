@@ -13,14 +13,13 @@ $tag = (Invoke-WebRequest $releases | ConvertFrom-Json)[0].tag_name
 
 $download = "https://github.com/$repo/releases/download/$tag/$file"
 $zip = "pses.zip"
-$dir = "PowerShellEditorServices"
 
 new-item -Name $dir -ItemType directory -Force
 Write-Host Dowloading $tag
 Invoke-WebRequest $download -Out $zip
 
 Write-Host Extracting release files
-Expand-Archive $zip -DestinationPath $dir -Force
+Expand-Archive $zip -Force -ErrorAction SilentlyContinue
 
 Remove-Item $zip -Force
 Write-Host install completed.
