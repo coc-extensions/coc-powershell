@@ -1,5 +1,5 @@
 # coc-pses
-PowerShellEditorService integration for coc.vim
+[PowerShellEditorService](https://github.com/PowerShell/PowerShellEditorServices) integration for [coc.nvim](https://github.com/neoclide/coc.nvim)
 
 Recommend to install with a plugin manager, for example:
 
