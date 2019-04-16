@@ -8,3 +8,8 @@ Plug 'yatli/coc-pses', {'do': './install.cmd' }
 ...
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}} 
 ```
+
+## TODO
+- pwsh core support
+- xplat support
+- REPL?
