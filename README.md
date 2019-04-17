@@ -4,7 +4,8 @@
 Recommend to install with a plugin manager, for example:
 
 ```vimL
-Plug 'yatli/coc-pses', {'do': './install.cmd' }
+
+Plug 'yatli/coc-pses', {'do': { -> coc#pses#install()} }
 ...
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}} 
 ```
