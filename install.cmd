@@ -19,7 +19,7 @@ Write-Host Dowloading $tag
 Invoke-WebRequest $download -Out $zip
 
 Write-Host Extracting release files...
-Expand-Archive $zip -Force
+Expand-Archive $zip -Force $pwd
 
 Remove-Item $zip -Force
 Write-Host install completed.
