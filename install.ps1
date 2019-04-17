@@ -5,7 +5,11 @@ if (!$IsCoreCLR) {
     [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 }
 
+# Fail on anything
 $ErrorActionPreference = "Stop"
+# Progress doesn't display properly in vim
+$ProgressPreference = "SilentlyContinue"
+
 $repo = "PowerShell/PowerShellEditorServices"
 $file = "PowerShellEditorServices.zip"
 
@@ -17,7 +21,7 @@ $tag = (Invoke-RestMethod $releases)[0].tag_name
 $download = "https://github.com/$repo/releases/download/$tag/$file"
 $zip = "pses.zip"
 
-New-Item -Name $dir -ItemType Directory -Force
+$null = New-Item -Name $dir -ItemType Directory -Force
 Write-Host Downloading $tag
 Invoke-WebRequest $download -OutFile $zip
 
