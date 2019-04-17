@@ -35,6 +35,10 @@ function! s:PSESSetup ()
             \)
 endfunction
 
+function! coc#pses#install()
+    execute "!../install.ps1"
+endfunction
+
 " Set the file type to ps1 for ps1, psm1, and psd1
 " 'ps1' is what vim-polyglot uses for styling
 if(&filetype == "")
