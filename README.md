@@ -1,4 +1,4 @@
-# coc-pses
+# coc-powershell
 
 A vim plugin powered by
 [PowerShellEditorService](https://github.com/PowerShell/PowerShellEditorServices) and 
