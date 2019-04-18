@@ -26,7 +26,7 @@ Write-Host Downloading $tag
 Invoke-WebRequest $download -OutFile $zip
 
 Write-Host Extracting release files...
-Expand-Archive $zip $pwd -Force
+Microsoft.PowerShell.Archive\Expand-Archive $zip $pwd -Force
 
 Remove-Item $zip -Force
 Write-Host install completed.
