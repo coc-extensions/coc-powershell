@@ -23,12 +23,12 @@ function! s:PSESSetup ()
             \       "-HostName", "coc.vim",
             \       "-HostProfileId", "0",
             \       "-HostVersion", "2.0.0",
-            \       "-LogPath", ".pses/log.txt",
+            \       "-LogPath", g:pses_dir . "/log.txt",
             \       "-LogLevel", "Diagnostic",
             \       "-FeatureFlags", "[]",
             \       "-BundledModulesPath", g:pses_dir . "/../",
             \       "-Stdio",
-            \       "-SessionDetailsPath", ".pses/session"
+            \       "-SessionDetailsPath", g:pses_dir . "/session"
             \     ]
             \    }
             \  }
