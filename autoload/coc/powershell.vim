@@ -10,7 +10,7 @@ if(s:is_mac)
     let s:install_script = 'pwsh '.s:install_script
 endif
 
-function! coc#pses#install()
+function! coc#powershell#install()
     let cwd = getcwd()
     exe 'lcd '.s:root
     exe '!'.s:install_script
