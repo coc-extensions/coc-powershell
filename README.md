@@ -23,7 +23,7 @@ Features include:
 1. Add this to your `vimrc`/`Init.vim`
 ```vimL
 
-Plug 'yatli/coc-powershell', {'do': { -> coc#powershell#install()} }
+Plug 'yatli/coc-powershell', {'do': { -> coc#powershell#install({})} }
 ...
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}} 
 ```
