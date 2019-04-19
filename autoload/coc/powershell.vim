@@ -12,6 +12,7 @@ function! coc#powershell#install(...)
     else
 	let s:flags = ''
     endif
+    let s:powershell_executable = ''
     if(exists('a:1.powershellExecutable'))
         let s:powershell_executable = a:1.powershellExecutable
     else
