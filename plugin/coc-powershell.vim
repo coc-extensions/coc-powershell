@@ -9,6 +9,7 @@ if(!exists("g:pses_logs_dir"))
     let g:pses_logs_dir      = resolve(expand(s:vimscript_dir . '/../.pses/logs/' . strftime('%Y%m%d') . '-' . getpid()))
 endif
 
+
 if(!exists("g:pses_powershell_executable"))
     let g:pses_powershell_executable = "powershell"
     if(executable("pwsh"))
