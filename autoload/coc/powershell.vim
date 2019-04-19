@@ -4,14 +4,14 @@ let s:is_mac = !s:is_win && !has('win32unix')
       \ && (has('mac') || has('macunix') || has('gui_macvim') ||
       \   (!isdirectory('/proc') && executable('sw_vers')))
 let s:is_vim         = !has('nvim')
-let s:install_script = s:root.'/install.ps1'
-
 if(!exists("g:coc_powershell_prerelease"))
     let g:coc_powershell_prerelease  = ''
 endif
 
+let s:install_script = s:root.'/install.ps1 '.g:coc_powershell_prerelease
+
 if(s:is_mac)
-    let s:install_script = 'pwsh '.s:install_script.' '.g:coc_powershell_prerelease
+    let s:install_script = 'pwsh '.s:install_script
 endif
 
 if(s:is_win)
