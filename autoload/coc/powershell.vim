@@ -6,14 +6,14 @@ let s:is_mac         = !s:is_win && !has('win32unix')
 let s:is_vim         = !has('nvim')
 let s:install_script = s:root.'/install.ps1'
 
-function! coc#powershell#install(options)
-    if(exists('a:options.flags'))
-        let s:flags = a:options.flags
+function! coc#powershell#install(...)
+    if(exists('a:1.flags'))
+        let s:flags = a:1.flags
     else
 	let s:flags = ''
     endif
-    if(exists('a:options.powershellExecutable'))
-        let s:powershell_executable = a:options.powershellExecutable
+    if(exists('a:1.powershellExecutable'))
+        let s:powershell_executable = a:1.powershellExecutable
     else
         if(s:is_mac)
             let s:powershell_executable = 'pwsh'
