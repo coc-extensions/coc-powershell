@@ -11,7 +11,7 @@ if(!exists("g:coc_powershell_prerelease"))
 endif
 
 if(s:is_mac)
-    let s:install_script = 'pwsh '.s:install_script
+    let s:install_script = 'pwsh '.s:install_script.' '.g:coc_powershell_prerelease
 endif
 
 if(s:is_win)
