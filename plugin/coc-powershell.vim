@@ -3,7 +3,7 @@ let g:pses_dir      = resolve(expand(s:vimscript_dir . '/../PowerShellEditorServ
 let g:pses_script   = g:pses_dir . "/Start-EditorServices.ps1"
 
 " Let the user specify the log directory for PSES.
-" If the user doesn't specify a location, use the root of vov-pses in a .pses
+" If the user doesn't specify a location, use the root of coc-pses in a .pses
 " directory.
 if(!exists("g:pses_logs_dir"))
     let g:pses_logs_dir      = resolve(expand(s:vimscript_dir . '/../.pses/logs/' . strftime('%Y%m%d') . '-' . getpid()))
