@@ -26,6 +26,6 @@ function! coc#powershell#install(...)
     endif
     let cwd = getcwd()
     exe 'lcd '.s:root
-    exe '!'.s:powershell_executable.' -NoProfile -ExecutionPolicy Bypass'.s:install_script.' '.s:flags
+    exe '!'.s:powershell_executable.' -NoProfile -ExecutionPolicy Bypass -File '.s:install_script.' '.s:flags
     exe 'lcd '.cwd
 endfunction
