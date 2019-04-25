@@ -16,10 +16,7 @@ function! coc#powershell#install(...)
     if(exists('a:1.powershellExecutable'))
         let s:powershell_executable = a:1.powershellExecutable
     else
-        if(s:is_mac)
-            let s:powershell_executable = 'pwsh'
-        endif
-
+        let s:powershell_executable = 'pwsh'
         if(s:is_win)
             let s:powershell_executable = "powershell"
             if(executable("pwsh"))
@@ -29,6 +26,6 @@ function! coc#powershell#install(...)
     endif
     let cwd = getcwd()
     exe 'lcd '.s:root
-    exe '!'.s:powershell_executable.' '.s:install_script.' '.s:flags
+    exe '!'.s:powershell_executable.' -NoProfile -ExecutionPolicy Bypass'.s:install_script.' '.s:flags
     exe 'lcd '.cwd
 endfunction
