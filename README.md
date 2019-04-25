@@ -1,7 +1,7 @@
 # coc-powershell
 
 A vim plugin powered by
-[PowerShellEditorService](https://github.com/PowerShell/PowerShellEditorServices) and 
+[PowerShellEditorService](https://github.com/PowerShell/PowerShellEditorServices) and
 [coc.nvim](https://github.com/neoclide/coc.nvim)
 to provide a rich PowerShell editing experience.
 
@@ -25,7 +25,7 @@ Features include:
 
 Plug 'yatli/coc-powershell', {'do': { -> coc#powershell#install()} }
 ...
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}} 
+Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 ```
 2. Reload vim.
 1. Run the vim command: `:PlugInstall`.

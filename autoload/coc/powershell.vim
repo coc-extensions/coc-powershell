@@ -7,10 +7,10 @@ let s:is_vim         = !has('nvim')
 let s:install_script = s:root.'/install.ps1'
 
 function! coc#powershell#install(...)
-    if(exists('a:1.flags'))
-        let s:flags = a:1.flags
+    if(exists('a:1.preview') && a:1.preview)
+        let s:flags = '-AllowPreRelease'
     else
-	let s:flags = ''
+        let s:flags = ''
     endif
     let s:powershell_executable = ''
     if(exists('a:1.powershellExecutable'))
