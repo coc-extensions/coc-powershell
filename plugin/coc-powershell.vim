@@ -1,5 +1,5 @@
+let s:vimscript_dir = expand('<sfile>:p:h')
 function! s:PSESSetup ()
-    let s:vimscript_dir = expand('<sfile>:p:h')
     let g:pses_dir      = resolve(expand(s:vimscript_dir . '/../PowerShellEditorServices/PowerShellEditorServices'))
     let g:pses_script   = g:pses_dir . "/Start-EditorServices.ps1"
 
