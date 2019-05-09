@@ -1,22 +1,22 @@
-let s:vimscript_dir = expand('<sfile>:p:h')
-let g:pses_dir      = resolve(expand(s:vimscript_dir . '/../PowerShellEditorServices/PowerShellEditorServices'))
-let g:pses_script   = g:pses_dir . "/Start-EditorServices.ps1"
-
-" Let the user specify the log directory for PSES.
-" If the user doesn't specify a location, use the root of coc-powershell in a .pses
-" directory.
-if(!exists("g:pses_logs_dir"))
-    let g:pses_logs_dir      = resolve(expand(s:vimscript_dir . '/../.pses/logs/' . strftime('%Y%m%d') . '-' . getpid()))
-endif
-
-if(!exists("g:pses_powershell_executable"))
-    let g:pses_powershell_executable = "powershell"
-    if(executable("pwsh"))
-        let g:pses_powershell_executable = "pwsh"
-    endif
-endif
-
 function! s:PSESSetup ()
+    let s:vimscript_dir = expand('<sfile>:p:h')
+    let g:pses_dir      = resolve(expand(s:vimscript_dir . '/../PowerShellEditorServices/PowerShellEditorServices'))
+    let g:pses_script   = g:pses_dir . "/Start-EditorServices.ps1"
+
+    " Let the user specify the log directory for PSES.
+    " If the user doesn't specify a location, use the root of coc-powershell in a .pses
+    " directory.
+    if(!exists("g:pses_logs_dir"))
+        let g:pses_logs_dir      = resolve(expand(s:vimscript_dir . '/../.pses/logs/' . strftime('%Y%m%d') . '-' . getpid()))
+    endif
+
+    if(!exists("g:pses_powershell_executable"))
+        let g:pses_powershell_executable = "powershell"
+        if(executable("pwsh"))
+            let g:pses_powershell_executable = "pwsh"
+        endif
+    endif
+
     call coc#config("languageserver", {
             \   "pses": {
             \     "command": g:pses_powershell_executable,
