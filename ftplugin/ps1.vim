@@ -42,10 +42,4 @@ function! s:PSESSetup ()
             \)
 endfunction
 
-" Set the file type to ps1 for ps1, psm1, and psd1
-" 'ps1' is what vim-polyglot uses for styling
-if(&filetype == "")
-    autocmd BufNewFile,BufRead *.ps*1 set filetype=ps1
-endif
-
-autocmd FileType ps1,psd1,psm1 call s:PSESSetup()
+call s:PSESSetup()
