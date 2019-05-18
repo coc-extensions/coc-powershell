@@ -14,19 +14,18 @@ function! s:getAvailablePowerShellExecutables ()
     let paths = []
     if(s:is_win)
         call add(paths, {
-            versionName: "Windows PowerShell",
-            executablePath: "C:\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
-
-        })
+            \ versionName: "Windows PowerShell",
+            \ executablePath: "C:\\System32\\WindowsPowerShell\\v1.0\\powershell.exe"
+            \ })
         
         let psCoreInstallPath = "C:\\System32\\PowerShell\\"
         if(isdirectory(psCoreInstallPath))
             let psCoreExePaths = split(glob(psCoreInstallPath . "**\\pwsh.exe"), "\n")
             if(!empty(psCoreExePaths))
                 call add(paths, {
-                    versionName: "PowerShell Core",
-                    executablePath: psCoreExePaths[0]
-                })
+                    \ versionName: "PowerShell Core",
+                    \ executablePath: psCoreExePaths[0]
+                    \ })
             endif
         endif
 
