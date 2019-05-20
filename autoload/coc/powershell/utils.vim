@@ -60,7 +60,15 @@ function! coc#powershell#utils#switch_powershell_executable (...)
             endif
             let index = index + 1
         endwhile
-        let s:choice = powershellExecutables[confirm("Which PowerShell executable would you like to use?", choiceStr) - 1].executablePath
+
+        let selection = confirm("Which PowerShell executable would you like to use?", choiceStr)
+        if(selection == 0)
+            " confirm was aborted, do nothing.
+            return
+        endif
+
+        " confirm is 1 indexed (0 being cancelled) so minus 1 for the 0 indexed arrays
+        let s:choice = powershellExecutables[selection - 1].executablePath
     else
         let s:choice = a:1
     endif
