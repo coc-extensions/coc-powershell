@@ -1,3 +1,7 @@
+if exists('s:loaded_ftplugin')
+  finish
+endif
+let s:loaded_ftplugin = 1
 let s:vimscript_dir = expand('<sfile>:p:h')
 function! s:PSESSetup ()
     let g:pses_dir      = resolve(expand(s:vimscript_dir . '/../PowerShellEditorServices/PowerShellEditorServices'))
