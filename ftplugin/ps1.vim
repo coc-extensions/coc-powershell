@@ -1,3 +1,7 @@
+if exists('s:loaded_ftplugin')
+  finish
+endif
+let s:loaded_ftplugin = 1
 let s:vimscript_dir = expand('<sfile>:p:h')
 function! s:PSESSetup ()
     let g:pses_dir      = resolve(expand(s:vimscript_dir . '/../PowerShellEditorServices/PowerShellEditorServices'))
@@ -42,10 +46,4 @@ function! s:PSESSetup ()
             \)
 endfunction
 
-" Set the file type to ps1 for ps1, psm1, and psd1
-" 'ps1' is what vim-polyglot uses for styling
-if(&filetype == "")
-    autocmd BufNewFile,BufRead *.ps*1 set filetype=ps1
-endif
-
-autocmd FileType ps1,psd1,psm1 call s:PSESSetup()
+call s:PSESSetup()
