@@ -11,7 +11,7 @@
         "url": "https://github.com/yatli/coc-powershell"
     },
     "engines": {
-        "coc": ">=0.0.67"
+        "coc": ">=0.0.71"
     },
     "keywords": [
         "powershell",
@@ -26,7 +26,7 @@
         "coc.nvim"
     ],
     "activationEvents": [
-        "onLanguage:powershell"
+        "onLanguage:ps1"
     ],
     "main": "out/client/extension.js",
     "files": [
@@ -36,7 +36,7 @@
     "contributes": {
         "languages": [
             {
-                "id": "powershell",
+                "id": "ps1",
                 "aliases": [
                     "PowerShell",
                     "pwsh"
@@ -288,7 +288,7 @@
     },
     "extensionDependencies": [],
     "dependencies": {
-        "coc.nvim": "^0.0.67"
+        "coc.nvim": "^0.0.71"
     },
     "devDependencies": {
         "@types/node": "^10.3.3",
