@@ -5,32 +5,33 @@
 'use strict';
 
 import * as path from 'path';
-import { workspace, ExtensionContext, commands, StatusBarItem } from 'coc.nvim';
-import { TerminalResult } from 'coc.nvim/lib/types';
+import { workspace, ExtensionContext, commands } from 'coc.nvim';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'coc.nvim';
 import { Range } from 'vscode-languageserver-types';
 import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
 
+const cocPowerShellRoot = path.join(__dirname, "..", "..");
+const bundledModulesPath = path.join(cocPowerShellRoot, "PowerShellEditorServices");
+const logPath = path.join(cocPowerShellRoot, "/.pses/logs/1234");
+
 export function activate(context: ExtensionContext) {
 
     const pwshPath = getDefaultPowerShellPath(getPlatformDetails())
-    
 	
 	let serverOptions: ServerOptions = { 
 		command: pwshPath, 
 		args: [
             "-NoProfile",
             "-NonInteractive",
-            "/Users/tyler/Code/PowerShell/coc-powershell/PowerShellEditorServices/PowerShellEditorServices/Start-EditorServices.ps1",
+            path.join(bundledModulesPath, "/PowerShellEditorServices/Start-EditorServices.ps1"),
             "-HostName", "coc.vim",
             "-HostProfileId", "0",
             "-HostVersion", "2.0.0",
-            "-LogPath", "/Users/tyler/Code/PowerShell/coc-powershell/.pses/logs/1234/log.txt",
+            "-LogPath", path.join(logPath, "log.txt"),
             "-LogLevel", "Diagnostic",
-            "-FeatureFlags", "[]",
-            "-BundledModulesPath", "/Users/tyler/Code/PowerShell/coc-powershell/PowerShellEditorServices/",
+            "-BundledModulesPath", bundledModulesPath,
             "-Stdio",
-            "-SessionDetailsPath", "/Users/tyler/Code/PowerShell/coc-powershell/.pses/logs/1234/session"], 
+            "-SessionDetailsPath", path.join(logPath, "session")],
 		transport: TransportKind.stdio
 	}
 
