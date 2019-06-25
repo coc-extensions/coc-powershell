@@ -288,7 +288,8 @@
     },
     "extensionDependencies": [],
     "dependencies": {
-        "coc.nvim": "^0.0.71"
+        "coc.nvim": "^0.0.71",
+        "node-fetch": "^2.6.0"
     },
     "devDependencies": {
         "@types/node": "^10.3.3",
