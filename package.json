@@ -31,7 +31,8 @@
     "main": "out/client/extension.js",
     "files": [
         "out",
-        "syntaxes"
+        "syntaxes",
+        "install.ps1"
     ],
     "contributes": {
         "languages": [
