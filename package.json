@@ -289,10 +289,11 @@
     "extensionDependencies": [],
     "dependencies": {
         "coc.nvim": "^0.0.71",
-        "node-fetch": "^2.6.0"
+        "node-powershell": "^4.0.0"
     },
     "devDependencies": {
         "@types/node": "^10.3.3",
+        "@types/node-powershell": "^3.1.0",
         "typescript": "^3.0.3"
     }
 }

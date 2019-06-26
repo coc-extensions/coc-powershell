@@ -37,9 +37,4 @@ Remove-Item $zip -Force
 
 Write-Host PowerShell Editor Services install completed.
 
-Write-Host Installing Node dependencies...
-
-npm install
-npm run compile
-
 Pop-Location
