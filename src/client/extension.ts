@@ -4,18 +4,19 @@
  * ------------------------------------------------------------------------------------------ */
 'use strict';
 
+import * as crypto from "crypto";
 import * as fs from 'fs';
 import * as path from 'path';
-import { workspace, ExtensionContext, commands } from 'coc.nvim';
+import { workspace, ExtensionContext } from 'coc.nvim';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'coc.nvim';
-import { Range } from 'vscode-languageserver-types';
 import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
 import Shell from "node-powershell";
 
+// Important paths.
 const cocPowerShellRoot = path.join(__dirname, "..", "..");
 const bundledModulesPath = path.join(cocPowerShellRoot, "PowerShellEditorServices");
-// TODO configuration for log path?
-const logPath = path.join(cocPowerShellRoot, "/.pses/logs/1234");
+const logPath = path.join(cocPowerShellRoot, `/.pses/logs/${crypto.randomBytes(16).toString("hex")}-${process.pid}`);
+
 // TODO log redirection?
 const logger = workspace.createOutputChannel("coc-powershell");
 
@@ -35,8 +36,8 @@ export async function activate(context: ExtensionContext) {
 			executionPolicy: 'Bypass',
 			noProfile: true
 		});
-	
-		ps.addCommand(path.join(cocPowerShellRoot, "install.ps1"));
+
+		ps.addCommand(path.join(cocPowerShellRoot, "src", "downloadPSES.ps1"));
         await ps.invoke()
             .catch(e => logger.appendLine("error downloading PSES: " + e))
             .finally(() => {
@@ -88,13 +89,4 @@ export async function activate(context: ExtensionContext) {
 	// Push the disposable to the context's subscriptions so that the 
 	// client can be deactivated on extension deactivation
 	context.subscriptions.push(disposable);
-	commands.registerCommand('powershell.command.goto', goto);
-}
-
-// NOTE (yatli): this is in fact due to coc-fsharp CodeLens using a custom command
-// if PSES is not using a 'goto' codelens command we can discard this one.
-// Also, any other pwsh codelens/general commands, like "test this", "evaluate"? they could be implemented like this one
-function goto(file: string, startLine: number, startColumn: number, _endLine: number, _endColumn: number) {
-	let selection = Range.create(startLine, startColumn, startLine, startColumn);
-	workspace.jumpTo(file, selection.start);
 }
