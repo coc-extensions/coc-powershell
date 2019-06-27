@@ -2,10 +2,10 @@
     "name": "coc-powershell",
     "displayName": "PowerShell Language Server for coc.nvim",
     "description": "PowerShell Language Support using PowerShell Editor Services",
-    "author": "Yatao Li",
+    "author": "Yatao Li, Tyler Leonhardt, Cory Knox",
     "license": "MIT",
-    "version": "0.1.49",
-    "publisher": "yatli",
+    "version": "0.0.1",
+    "publisher": "yatli, tylerl0706, corbob",
     "repository": {
         "type": "git",
         "url": "https://github.com/yatli/coc-powershell"
@@ -14,6 +14,7 @@
         "coc": ">=0.0.71"
     },
     "keywords": [
+        "pwsh",
         "powershell",
         "coc.nvim",
         "dotnet",
