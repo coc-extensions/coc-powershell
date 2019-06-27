@@ -32,7 +32,7 @@ Alternatively, you can have `coc.nvim` automatically install the extension if it
 let g:coc_global_extensions=[ 'coc-powershell', ... ]
 ```
 
-On the first activation (when you edit a powershell script), [PowerShellEditorService](https://github.com/PowerShell/PowerShellEditorServices) will be automatically downloaded.
+On the first activation (when you edit a powershell script), [PowerShellEditorServices](https://github.com/PowerShell/PowerShellEditorServices) will be automatically downloaded.
 
 ## TODO
 - [x] pwsh core support
