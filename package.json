@@ -290,12 +290,12 @@
     },
     "extensionDependencies": [],
     "dependencies": {
-        "coc.nvim": "^0.0.71",
         "node-powershell": "^4.0.0"
     },
     "devDependencies": {
         "@types/node": "^10.3.3",
         "@types/node-powershell": "^3.1.0",
-        "typescript": "^3.0.3"
+        "typescript": "^3.0.3",
+        "coc.nvim": "^0.0.71"
     }
 }
