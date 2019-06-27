@@ -26,6 +26,7 @@ Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 ```
 
 Then, use `:CocInstall coc-powershell` to install.
+
 Alternatively, you can have `coc.nvim` automatically install the extension if it's missing:
 ```vimL
 let g:coc_global_extensions=[ 'coc-powershell', ... ]
