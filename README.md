@@ -1,5 +1,7 @@
 # coc-powershell
 
+[![Build Status](https://v-yadli.visualstudio.com/coc-powershell/_apis/build/status/yatli.coc-powershell?branchName=master)](https://v-yadli.visualstudio.com/coc-powershell/_build/latest?definitionId=1&branchName=master)
+
 A vim plugin powered by
 [PowerShellEditorService](https://github.com/PowerShell/PowerShellEditorServices) and
 [coc.nvim](https://github.com/neoclide/coc.nvim)
