@@ -15,27 +15,23 @@ Features include:
 
 1. vim/neovim
 2. [PowerShell Core](https://github.com/powershell/powershell) or Windows PowerShell
+3. [coc.nvim](https://github.com/neoclide/coc.nvim)
 
 ## Installation
 
-### (Recommended) Install with a plugin manager like [vim-plug](https://github.com/junegunn/vim-plug):
-
-1. Add this to your `vimrc`/`Init.vim`
+`coc-powershell` is an extension for `coc.nvim`.
+You can install `coc.nvim` with a plugin manager like [vim-plug](https://github.com/junegunn/vim-plug):
 ```vimL
-
-" default installation:
-coc#powershell#install()
-" or, download the preview version of PowerShellEditorService:
-coc#powershell#install("preview")
-" or, also supplying initial setting of the PowerShell executable:
-coc#powershell#install({ "preview": 1, "PowerShellExecutable": "pwsh"})
-
-...
-" dependency:
 Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
 ```
-2. Reload vim.
-3. Run the vim command: `:PlugInstall`.
+
+Then, use `:CocInstall coc-powershell` to install.
+Alternatively, you can have `coc.nvim` automatically install the extension if it's missing:
+```vimL
+let g:coc_global_extensions=[ 'coc-powershell', ... ]
+```
+
+On the first activation (when you edit a powershell script), [PowerShellEditorService](https://github.com/PowerShell/PowerShellEditorServices) will be automatically downloaded.
 
 ## TODO
 - [x] pwsh core support
