@@ -4,7 +4,7 @@
     "description": "PowerShell Language Support using PowerShell Editor Services",
     "author": "Yatao Li, Tyler Leonhardt, Cory Knox",
     "license": "MIT",
-    "version": "0.0.1",
+    "version": "0.0.3",
     "publisher": "yatli, tylerl0706, corbob",
     "repository": {
         "type": "git",
@@ -33,7 +33,7 @@
     "files": [
         "out",
         "syntaxes",
-        "install.ps1"
+        "src/downloadPSES.ps1"
     ],
     "contributes": {
         "languages": [
