@@ -7,7 +7,7 @@
 import * as crypto from "crypto";
 import * as fs from 'fs';
 import * as path from 'path';
-import { workspace, ExtensionContext } from 'coc.nvim';
+import { workspace, ExtensionContext, events } from 'coc.nvim';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'coc.nvim';
 import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
 import * as settings from './settings';
@@ -25,6 +25,7 @@ export async function activate(context: ExtensionContext) {
     let pwshPath = config.powerShellExePath
         ? config.powerShellExePath 
         : getDefaultPowerShellPath(getPlatformDetails())
+
     logger.appendLine("starting.")
     logger.appendLine(`pwshPath = ${pwshPath}`)
     logger.appendLine(`bundledModulesPath = ${bundledModulesPath}`)
@@ -88,6 +89,28 @@ export async function activate(context: ExtensionContext) {
 	// Create the language client and start the client.
 	let client = new LanguageClient('ps1', 'PowerShell Language Server', serverOptions, clientOptions);
 	let disposable = client.start();
+
+    // Status bar entry showing PS version
+    let versionBarItem = workspace.createStatusBarItem(0, {progress: false})
+    versionBarItem.text = pwshPath.indexOf("powershell.exe") >= 0
+        ? "PS-Desktop"
+        : "PS-Core"
+    versionBarItem.show()
+
+    events.on('BufEnter', async () => {
+        let document = await workspace.document
+        if (!document) {
+            versionBarItem.hide()
+            return
+        }
+
+        if (document.filetype === 'ps1') {
+            versionBarItem.show()
+        } else {
+            versionBarItem.hide()
+        }
+    })
+
 
 	// Push the disposable to the context's subscriptions so that the 
 	// client can be deactivated on extension deactivation
