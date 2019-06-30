@@ -104,7 +104,7 @@ export function load(): ISettings {
             utils.PowerShellLanguageId);
 
     const defaultBugReportingSettings: IBugReportingSettings = {
-        project: "https://github.com/PowerShell/vscode-powershell",
+        project: "https://github.com/yatli/coc-powershell",
     };
 
     const defaultScriptAnalysisSettings: IScriptAnalysisSettings = {

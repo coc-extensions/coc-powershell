@@ -10,18 +10,21 @@ import * as path from 'path';
 import { workspace, ExtensionContext } from 'coc.nvim';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'coc.nvim';
 import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
+import * as settings from './settings';
 import Shell from "node-powershell";
 
 // Important paths.
+const config = settings.load()
 const cocPowerShellRoot = path.join(__dirname, "..", "..");
 const bundledModulesPath = path.join(cocPowerShellRoot, "PowerShellEditorServices");
 const logPath = path.join(cocPowerShellRoot, `/.pses/logs/${crypto.randomBytes(16).toString("hex")}-${process.pid}`);
-
-// TODO log redirection?
-const logger = workspace.createOutputChannel("coc-powershell");
+const logger = workspace.createOutputChannel('powershell')
 
 export async function activate(context: ExtensionContext) {
-	const pwshPath = getDefaultPowerShellPath(getPlatformDetails())
+
+    let pwshPath = config.powerShellExePath
+        ? config.powerShellExePath 
+        : getDefaultPowerShellPath(getPlatformDetails())
     logger.appendLine("starting.")
     logger.appendLine(`pwshPath = ${pwshPath}`)
     logger.appendLine(`bundledModulesPath = ${bundledModulesPath}`)
@@ -72,7 +75,7 @@ export async function activate(context: ExtensionContext) {
 		documentSelector: [{ scheme: 'file', language: 'ps1' }],
 		synchronize: {
 			// Synchronize the setting section 'powershell' to the server
-			configurationSection: 'ps1',
+			configurationSection: 'powershell',
 			// Notify the server about file changes to PowerShell files contain in the workspace
 			fileEvents: [
 				workspace.createFileSystemWatcher('**/*.ps1'),
