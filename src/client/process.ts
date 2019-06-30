@@ -66,7 +66,6 @@ export class PowerShellProcess {
         this.log.appendLine(`bundledModulesPath = ${this.bundledModulesPath}`)
 
         let logDir = path.join(this.cocPowerShellRoot, `/.pses/logs/${crypto.randomBytes(16).toString("hex")}-${process.pid}`)
-        utils.ensurePathExists(logDir)
         this.sessionFilePath = path.join(logDir, "session")
 
         // Make sure no old session file exists
