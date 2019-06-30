@@ -87,7 +87,7 @@ export class PowerShellProcess {
             "-HostProfileId", "0",
             "-HostVersion", "2.0.0",
             "-LogPath", path.join(logDir, "log.txt"),
-            "-LogLevel", "Diagnostic",
+            "-LogLevel", this.config.developer.editorServicesLogLevel || "Normal",
             "-BundledModulesPath", this.bundledModulesPath,
             "-EnableConsoleRepl",
             "-SessionDetailsPath", this.sessionFilePath)
