@@ -7,67 +7,33 @@
 import * as crypto from "crypto";
 import * as fs from 'fs';
 import * as path from 'path';
+import * as net from 'net';
 import { commands, workspace, ExtensionContext, events } from 'coc.nvim';
-import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'coc.nvim';
-import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
+import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, StreamInfo } from 'coc.nvim';
 import { fileURLToPath } from './utils'
-import * as settings from './settings';
-import Shell from "node-powershell";
-
-// Important paths.
-const config = settings.load()
-const cocPowerShellRoot = path.join(__dirname, "..", "..");
-const bundledModulesPath = path.join(cocPowerShellRoot, "PowerShellEditorServices");
-const logPath = path.join(cocPowerShellRoot, `/.pses/logs/${crypto.randomBytes(16).toString("hex")}-${process.pid}`);
-const logger = workspace.createOutputChannel('powershell')
+import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
+import settings = require("./settings");
+import * as process from './process';
 
 export async function activate(context: ExtensionContext) {
 
+    let config = settings.load()
     let pwshPath = config.powerShellExePath
-        ? config.powerShellExePath 
+        ? this.config.powerShellExePath 
         : getDefaultPowerShellPath(getPlatformDetails())
 
-    logger.appendLine("starting.")
-    logger.appendLine(`pwshPath = ${pwshPath}`)
-    logger.appendLine(`bundledModulesPath = ${bundledModulesPath}`)
+    let proc = new process.PowerShellProcess(config, pwshPath, "PowerShell REPL")
 
-	// If PowerShellEditorServices is not downloaded yet, run the install script to do so.
-	if (!fs.existsSync(bundledModulesPath)) {
-        let notification = workspace.createStatusBarItem(0, { progress: true})
-        notification.text = "Downloading PowerShellEditorServices..."
-        notification.show()
-        
-		const ps = new Shell({
-			executionPolicy: 'Bypass',
-			noProfile: true
-		});
-
-		ps.addCommand(path.join(cocPowerShellRoot, "src", "downloadPSES.ps1"));
-        await ps.invoke()
-            .catch(e => logger.appendLine("error downloading PSES: " + e))
-            .finally(() => {
-            notification.hide()
-            notification.dispose()
-        });
-
-	}
-
-	let serverOptions: ServerOptions = {
-		command: pwshPath,
-		args: [
-			"-NoProfile",
-			"-NonInteractive",
-			path.join(bundledModulesPath, "/PowerShellEditorServices/Start-EditorServices.ps1"),
-			"-HostName", "coc.vim",
-			"-HostProfileId", "0",
-			"-HostVersion", "2.0.0",
-			"-LogPath", path.join(logPath, "log.txt"),
-			"-LogLevel", "Diagnostic",
-			"-BundledModulesPath", bundledModulesPath,
-			"-Stdio",
-			"-SessionDetailsPath", path.join(logPath, "session")],
-		transport: TransportKind.stdio
-	}
+    let sessionDetails = await proc.start()
+    let socket = net.connect(sessionDetails.languageServicePipeName);
+    let streamInfo = () => new Promise<StreamInfo>((resolve, reject) => {
+        socket.on(
+            "connect",
+            () => {
+                proc.log.appendLine("Language service connected.");
+                resolve({writer: socket, reader: socket});
+            });
+    });
 
 	workspace.addRootPatterns('ps1', ['*.ps1', '*.psd1', '*.psm1', '.vim', '.git', '.hg'])
 
@@ -88,7 +54,7 @@ export async function activate(context: ExtensionContext) {
 	}
 
 	// Create the language client and start the client.
-	let client = new LanguageClient('ps1', 'PowerShell Language Server', serverOptions, clientOptions);
+	let client = new LanguageClient('ps1', 'PowerShell Language Server', streamInfo, clientOptions);
 	let disposable = client.start();
 
     // Status bar entry showing PS version

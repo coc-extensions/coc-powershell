@@ -4,7 +4,7 @@
     "description": "PowerShell Language Support using PowerShell Editor Services",
     "author": "Yatao Li, Tyler Leonhardt, Cory Knox",
     "license": "MIT",
-    "version": "0.0.4",
+    "version": "0.0.5",
     "publisher": "yatli, tylerl0706, corbob",
     "repository": {
         "type": "git",
