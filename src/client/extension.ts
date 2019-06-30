@@ -7,9 +7,10 @@
 import * as crypto from "crypto";
 import * as fs from 'fs';
 import * as path from 'path';
-import { workspace, ExtensionContext, events } from 'coc.nvim';
+import { commands, workspace, ExtensionContext, events } from 'coc.nvim';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind } from 'coc.nvim';
 import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
+import { fileURLToPath } from './utils'
 import * as settings from './settings';
 import Shell from "node-powershell";
 
@@ -111,8 +112,28 @@ export async function activate(context: ExtensionContext) {
         }
     })
 
+    let cmdExecFile = commands.registerCommand("powershell.execute", async (...args: any[]) => {
+        let document = await workspace.document
+        if (!document || document.filetype !== 'ps1') {
+            return
+        }
+
+        let argStrs = args
+            ? args.map(x => `${x}`)
+            : []
+
+        let filePath = fileURLToPath(document.uri)
+        logger.appendLine(`executing: ${filePath}`)
+
+        await workspace.createTerminal({
+            name: `PowerShell: ${filePath}`,
+            shellPath: pwshPath,
+            shellArgs: ['-NoProfile', filePath].concat(argStrs)
+        })
+
+    })
 
 	// Push the disposable to the context's subscriptions so that the 
 	// client can be deactivated on extension deactivation
-	context.subscriptions.push(disposable);
+	context.subscriptions.push(disposable, cmdExecFile);
 }

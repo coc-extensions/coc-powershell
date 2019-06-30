@@ -7,8 +7,13 @@
 import fs = require("fs");
 import os = require("os");
 import path = require("path");
+import { Uri } from 'coc.nvim'
 
 export let PowerShellLanguageId = "powershell";
+
+export function fileURLToPath(x: string) {
+    return Uri.parse(x).fsPath
+}
 
 export function ensurePathExists(targetPath: string) {
     // Ensure that the path exists
