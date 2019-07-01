@@ -35,4 +35,3 @@ if ($Test.IsPresent) {
 if ($Pack.IsPresent) {
     npm pack
 }
-

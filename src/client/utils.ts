@@ -15,6 +15,10 @@ export function fileURLToPath(x: string) {
     return Uri.parse(x).fsPath
 }
 
+export function sleep(ms: number) {
+    return new Promise((resolve, __) => setTimeout(resolve, ms))
+}
+
 export function ensurePathExists(targetPath: string) {
     // Ensure that the path exists
     try {

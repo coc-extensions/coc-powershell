@@ -90,7 +90,6 @@ export class PowerShellProcess {
             "-BundledModulesPath", this.bundledModulesPath,
             "-EnableConsoleRepl",
             "-SessionDetailsPath", this.sessionFilePath)
-        
 
         this.consoleTerminal = await vscode.workspace.createTerminal({
             name: this.title,
@@ -140,10 +139,16 @@ export class PowerShellProcess {
         }
     }
 
-    public eval(line: string) {
+    public async eval(line: string) {
         if (this.consoleTerminal) {
             this.consoleTerminal.sendText(line)
         }
+    }
+
+    public async scrollToBottom() {
+        this.consoleTerminal.show(false)
+        await utils.sleep(100)
+        await vscode.workspace.nvim.command("wincmd w")
     }
 
     public dispose() {
