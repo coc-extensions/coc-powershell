@@ -131,7 +131,7 @@ export async function activate(context: ExtensionContext) {
             : []
 
         let filePath = fileURLToPath(document.uri)
-        logger.appendLine(`executing: ${filePath}`)
+        proc.log.appendLine(`executing: ${filePath}`)
 
         await workspace.createTerminal({
             name: `PowerShell: ${filePath}`,
