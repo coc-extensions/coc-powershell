@@ -15,7 +15,7 @@ Features include:
 
 ## Prerequisites
 
-1. vim/neovim
+1. vim 8.0+/neovim
 2. [PowerShell Core](https://github.com/powershell/powershell) or Windows PowerShell
 3. [coc.nvim](https://github.com/neoclide/coc.nvim)
 
