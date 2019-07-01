@@ -15,9 +15,8 @@ import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
 import settings = require("./settings");
 import * as process from './process';
 
-async function getCurrentSelection() {
+async function getCurrentSelection(mode: string) {
     let doc = await workspace.document
-    let { mode: mode, blocking: blocking} = await workspace.nvim.mode
 
     if (mode === "v" || mode === "V") {
         let [from, _ ] = await doc.buffer.mark("<")
@@ -106,18 +105,21 @@ export async function activate(context: ExtensionContext) {
         }
     })
 
-    let cmdEvalSelection = commands.registerCommand("powershell.evaluateSelection", async () => {
+    let doEval = async function(mode: string) {
         let document = await workspace.document
         if (!document || document.filetype !== 'ps1') {
             return
         }
 
-        for(let line of await getCurrentSelection())
+        for(let line of await getCurrentSelection(mode))
         {
             proc.eval(line)
         }
-    });
+    }
 
+
+    let cmdEvalLine = commands.registerCommand("powershell.evaluateLine", async () => doEval('n'));
+    let cmdEvalSelection = commands.registerCommand("powershell.evaluateSelection", async () => doEval('v'));
     let cmdExecFile = commands.registerCommand("powershell.execute", async (...args: any[]) => {
         let document = await workspace.document
         if (!document || document.filetype !== 'ps1') {
@@ -141,5 +143,5 @@ export async function activate(context: ExtensionContext) {
 
 	// Push the disposable to the context's subscriptions so that the 
 	// client can be deactivated on extension deactivation
-	context.subscriptions.push(disposable, cmdExecFile, cmdEvalSelection);
+	context.subscriptions.push(disposable, cmdExecFile, cmdEvalLine, cmdEvalSelection);
 }
