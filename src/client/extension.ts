@@ -23,7 +23,7 @@ async function getCurrentSelection() {
         let [from, _ ] = await doc.buffer.mark("<")
         let [to, __  ] = await doc.buffer.mark(">")
         let result: string[] = []
-        for(let i = from; i <= to; ++i)
+        for(let i = from - 1; i < to; ++i)
         {
             result.push(doc.getline(i))
         }
@@ -31,7 +31,7 @@ async function getCurrentSelection() {
     }
     else if (mode === "n") {
         let line = await workspace.nvim.call('line', '.')
-        return [doc.getline(line)]
+        return [doc.getline(line - 1)]
     }
     else if (mode === "i") {
         // TODO what to do in insert mode?
@@ -106,7 +106,7 @@ export async function activate(context: ExtensionContext) {
         }
     })
 
-    let cmdEvalSeleection = commands.registerCommand("powershell.evaluateSelection", async () => {
+    let cmdEvalSelection = commands.registerCommand("powershell.evaluateSelection", async () => {
         let document = await workspace.document
         if (!document || document.filetype !== 'ps1') {
             return
@@ -141,5 +141,5 @@ export async function activate(context: ExtensionContext) {
 
 	// Push the disposable to the context's subscriptions so that the 
 	// client can be deactivated on extension deactivation
-	context.subscriptions.push(disposable, cmdExecFile);
+	context.subscriptions.push(disposable, cmdExecFile, cmdEvalSelection);
 }
