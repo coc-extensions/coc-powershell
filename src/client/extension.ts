@@ -15,6 +15,34 @@ import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
 import settings = require("./settings");
 import * as process from './process';
 
+async function getCurrentSelection() {
+    let doc = await workspace.document
+    let { mode: mode, blocking: blocking} = await workspace.nvim.mode
+
+    if (mode === "v" || mode === "V") {
+        let [from, _ ] = await doc.buffer.mark("<")
+        let [to, __  ] = await doc.buffer.mark(">")
+        let result: string[] = []
+        for(let i = from; i <= to; ++i)
+        {
+            result.push(doc.getline(i))
+        }
+        return result
+    }
+    else if (mode === "n") {
+        let line = await workspace.nvim.call('line', '.')
+        return [doc.getline(line)]
+    }
+    else if (mode === "i") {
+        // TODO what to do in insert mode?
+    }
+    else if (mode === "t") {
+        //TODO what to do in terminal mode?
+    }
+
+    return []
+}
+
 export async function activate(context: ExtensionContext) {
 
     let config = settings.load()
@@ -77,6 +105,18 @@ export async function activate(context: ExtensionContext) {
             versionBarItem.hide()
         }
     })
+
+    let cmdEvalSeleection = commands.registerCommand("powershell.evaluateSelection", async () => {
+        let document = await workspace.document
+        if (!document || document.filetype !== 'ps1') {
+            return
+        }
+
+        for(let line of await getCurrentSelection())
+        {
+            proc.eval(line)
+        }
+    });
 
     let cmdExecFile = commands.registerCommand("powershell.execute", async (...args: any[]) => {
         let document = await workspace.document

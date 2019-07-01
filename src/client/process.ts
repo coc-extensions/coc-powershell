@@ -140,6 +140,12 @@ export class PowerShellProcess {
         }
     }
 
+    public eval(line: string) {
+        if (this.consoleTerminal) {
+            this.consoleTerminal.sendText(line)
+        }
+    }
+
     public dispose() {
 
         // Clean up the session file
