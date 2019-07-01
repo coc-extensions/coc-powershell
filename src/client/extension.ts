@@ -23,9 +23,9 @@ async function getCurrentSelection() {
         let [from, _ ] = await doc.buffer.mark("<")
         let [to, __  ] = await doc.buffer.mark(">")
         let result: string[] = []
-        for(let i = from - 1; i < to; ++i)
+        for(let i = from; i <= to; ++i)
         {
-            result.push(doc.getline(i))
+            result.push(doc.getline(i - 1))
         }
         return result
     }
