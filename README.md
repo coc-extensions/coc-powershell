@@ -11,6 +11,7 @@ Features include:
 * Intellisense/Completions
 * Go to definition
 * [PSScriptAnalyzer](https://github.com/PowerShell/PSScriptAnalyzer) integration
+* Integrated REPL environment that shares the context with the language services
 * and much more!
 
 ## Prerequisites
@@ -39,7 +40,7 @@ On the first activation (when you edit a powershell script), [PowerShellEditorSe
 ## TODO
 - [x] pwsh core support
 - [x] xplat support
-- [ ] REPL?
+- [x] REPL support
 
 ## Recommended plugins
 
