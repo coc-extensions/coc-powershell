@@ -11,6 +11,7 @@ import { fileURLToPath, sleep } from './utils'
 import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
 import settings = require("./settings");
 import * as process from './process';
+import { EvaluateRequestType } from "./messages";
 
 async function getCurrentSelection(mode: string) {
     let doc = await workspace.document
@@ -80,10 +81,12 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
                 return
             }
 
-            for(let line of await getCurrentSelection(mode))
-            {
-                await proc.eval(line)
-            }
+            // TODO: move to workspace.getCurrentSelection when we get an answer:
+            // https://github.com/neoclide/coc.nvim/issues/933
+            const content = (await getCurrentSelection(mode)).join("\n");
+            client.sendRequest(EvaluateRequestType, {
+                expression: content,
+            });
 
             await proc.scrollToBottom()
         }
