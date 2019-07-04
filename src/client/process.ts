@@ -3,16 +3,12 @@
  * Licensed under the MIT License. See License.txt in the project root for license information.
  * ------------------------------------------------------------------------------------------ */
 
-import cp = require("child_process");
 import fs = require("fs");
-import net = require("net");
-import os = require("os");
 import path = require("path");
 import vscode = require("coc.nvim");
 import Settings = require("./settings");
 import utils = require("./utils");
 import crypto = require("crypto");
-import Shell from "node-powershell";
 
 export class PowerShellProcess {
     public static escapeSingleQuotes(pspath: string): string {
@@ -43,23 +39,9 @@ export class PowerShellProcess {
 
         // If PowerShellEditorServices is not downloaded yet, run the install script to do so.
         if (!fs.existsSync(this.bundledModulesPath)) {
-            let notification = vscode.workspace.createStatusBarItem(0, { progress: true})
-            notification.text = "Downloading PowerShellEditorServices..."
-            notification.show()
-            
-            const ps = new Shell({
-                executionPolicy: 'Bypass',
-                noProfile: true
-            });
-
-            ps.addCommand(path.join(this.cocPowerShellRoot, "src", "downloadPSES.ps1"));
-            await ps.invoke()
-                .catch(e => logger.appendLine("error downloading PSES: " + e))
-                .finally(() => {
-                notification.hide()
-                notification.dispose()
-            });
-
+            const errMessage = "[Error] PowerShell Editor Services not found. Package is not in the correct format."
+            this.log.appendLine(errMessage);
+            throw errMessage;
         }
 
         this.log.appendLine("starting.")
