@@ -22,9 +22,9 @@ steps:
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
     contents: |
-        '*.tgz'
-        'package.json'
-        'CHANGELOG.md'
+      '*.tgz'
+      'package.json'
+      'CHANGELOG.md'
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy files to staging'
 
