@@ -21,12 +21,23 @@ steps:
 - task: CopyFiles@2
   inputs:
     sourceFolder: '$(Build.SourcesDirectory)'
-    contents: |
-        '*.tgz'
-        'package.json'
-        'CHANGELOG.md'
+    contents: '*.tgz' 
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy files to staging'
+  displayName: 'Copy npm package'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'package.json' 
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy package.json'
+
+- task: CopyFiles@2
+  inputs:
+    sourceFolder: '$(Build.SourcesDirectory)'
+    contents: 'CHANGELOG.md' 
+    targetFolder: $(Build.ArtifactStagingDirectory)/npm
+  displayName: 'Copy CHANGELOG.md'
 
 - task: PublishBuildArtifacts@1
   inputs:
