@@ -32,13 +32,6 @@ steps:
     targetFolder: $(Build.ArtifactStagingDirectory)/npm
   displayName: 'Copy package.json'
 
-- task: CopyFiles@2
-  inputs:
-    sourceFolder: '$(Build.SourcesDirectory)'
-    contents: 'CHANGELOG.md' 
-    targetFolder: $(Build.ArtifactStagingDirectory)/npm
-  displayName: 'Copy CHANGELOG.md'
-
 - task: PublishBuildArtifacts@1
   inputs:
     pathtoPublish: '$(Build.ArtifactStagingDirectory)/npm'
