@@ -81,7 +81,10 @@ export class PowerShellProcess {
         })
 
         if (!this.config.integratedConsole.showOnStartup) {
-            this.consoleTerminal.hide()
+            // TODO: remove `as any` when coc.nvim updates past 0.0.72-471db1a4c4
+            const buf = vscode.workspace.nvim.createBuffer((this.consoleTerminal as any).bufnr);
+            await buf.setOption('bufhidden', 'hide');
+            this.consoleTerminal.hide();
         }
 
         await new Promise((resolve, reject) => {
@@ -116,22 +119,13 @@ export class PowerShellProcess {
         return this.sessionDetails
     }
 
-    public showConsole(preserveFocus: boolean) {
-        if (this.consoleTerminal) {
-            this.consoleTerminal.show(preserveFocus);
-        }
-    }
-
-    public async eval(line: string) {
-        if (this.consoleTerminal) {
-            this.consoleTerminal.sendText(line)
-        }
-    }
 
     public async scrollToBottom() {
-        this.consoleTerminal.show(false)
-        await utils.sleep(100)
-        await vscode.workspace.nvim.command("wincmd w")
+        if (this.config.integratedConsole.showOnStartup) {
+            this.consoleTerminal.show(!this.config.integratedConsole.focusConsoleOnExecute)
+            await utils.sleep(100)
+            await vscode.workspace.nvim.command("wincmd w")
+        }
     }
 
     public dispose() {
