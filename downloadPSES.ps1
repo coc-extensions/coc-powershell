@@ -12,7 +12,7 @@ $ErrorActionPreference = "Stop"
 # Progress doesn't display properly in vim
 $ProgressPreference = "SilentlyContinue"
 
-Push-Location (Join-Path $PSScriptRoot ..)
+Push-Location $PSScriptRoot
 
 $repo = "PowerShell/PowerShellEditorServices"
 $file = "PowerShellEditorServices.zip"

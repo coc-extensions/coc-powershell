@@ -36,7 +36,8 @@
         "syntaxes",
         "src/downloadPSES.ps1",
         "README.md",
-        "LICENSE"
+        "LICENSE",
+        "PowerShellEditorServices"
     ],
     "contributes": {
         "languages": [
@@ -292,12 +293,9 @@
         "watch": "tsc -watch -p ./"
     },
     "extensionDependencies": [],
-    "dependencies": {
-        "node-powershell": "^4.0.0"
-    },
+    "dependencies": {},
     "devDependencies": {
         "@types/node": "^10.3.3",
-        "@types/node-powershell": "^3.1.0",
         "typescript": "^3.0.3",
         "coc.nvim": "^0.0.71"
     }
