@@ -119,6 +119,8 @@ export class PowerShellProcess {
     public async showTerminalIfVisible() {
         if (this.consoleTerminal) {
             const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnr})`) as number;
+
+            // If winid is -1, it means the window is not visible/is hidden.
             if (winid > -1) {
                 this.consoleTerminal.show(!this.config.integratedConsole.focusConsoleOnExecute);
             }
