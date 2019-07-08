@@ -81,9 +81,6 @@ export class PowerShellProcess {
         })
 
         if (!this.config.integratedConsole.showOnStartup) {
-            // TODO: remove `as any` when coc.nvim updates past 0.0.72-471db1a4c4
-            const buf = vscode.workspace.nvim.createBuffer((this.consoleTerminal as any).bufnr);
-            await buf.setOption('bufhidden', 'hide');
             this.consoleTerminal.hide();
         }
 
