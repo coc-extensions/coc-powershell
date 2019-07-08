@@ -119,12 +119,12 @@ export class PowerShellProcess {
         return this.sessionDetails
     }
 
-
-    public async scrollToBottom() {
-        if (this.config.integratedConsole.showOnStartup) {
-            this.consoleTerminal.show(!this.config.integratedConsole.focusConsoleOnExecute)
-            await utils.sleep(100)
-            await vscode.workspace.nvim.command("wincmd w")
+    public async showTerminalIfVisible() {
+        if (this.consoleTerminal) {
+            const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnr})`) as number;
+            if (winid > -1) {
+                this.consoleTerminal.show(!this.config.integratedConsole.focusConsoleOnExecute);
+            }
         }
     }
 

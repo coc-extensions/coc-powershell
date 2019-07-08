@@ -90,7 +90,7 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
             }
             client.sendRequest(EvaluateRequestMessage, evaluateArgs)
 
-            await proc.scrollToBottom()
+            await proc.showTerminalIfVisible();
         }
 
 
