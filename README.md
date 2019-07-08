@@ -26,7 +26,7 @@ Features include:
 `coc-powershell` is an extension for `coc.nvim`.
 You can install `coc.nvim` with a plugin manager like [vim-plug](https://github.com/junegunn/vim-plug):
 ```vimL
-Plug 'neoclide/coc.nvim', {'tag': '*', 'do': { -> coc#util#install()}}
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 ```
 
 Then, use `:CocInstall coc-powershell` to install.
