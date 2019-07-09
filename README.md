@@ -4,7 +4,7 @@
 ![npm](https://img.shields.io/npm/v/coc-powershell.svg)
 
 A vim plugin powered by
-[PowerShellEditorService](https://github.com/PowerShell/PowerShellEditorServices) and
+[PowerShellEditorServices](https://github.com/PowerShell/PowerShellEditorServices) and
 [coc.nvim](https://github.com/neoclide/coc.nvim)
 to provide a rich PowerShell editing experience.
 
@@ -17,7 +17,7 @@ Features include:
 
 ## Prerequisites
 
-1. vim 8.0+/neovim
+1. Vim 8.0+ or NeoVim
 2. [PowerShell Core](https://github.com/powershell/powershell) or Windows PowerShell
 3. [coc.nvim](https://github.com/neoclide/coc.nvim)
 
@@ -35,13 +35,6 @@ Alternatively, you can have `coc.nvim` automatically install the extension if it
 ```vimL
 let g:coc_global_extensions=[ 'coc-powershell', ... ]
 ```
-
-On the first activation (when you edit a powershell script), [PowerShellEditorServices](https://github.com/PowerShell/PowerShellEditorServices) will be automatically downloaded.
-
-## TODO
-- [x] pwsh core support
-- [x] xplat support
-- [x] REPL support
 
 ## Recommended plugins
 
