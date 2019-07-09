@@ -11,7 +11,7 @@ import { fileURLToPath, sleep } from './utils'
 import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
 import settings = require("./settings");
 import * as process from './process';
-import { EvaluateRequestMessage, IEvaluateRequestArguments } from "./messages";
+import { EvaluateRequestMessage, IEvaluateRequestArguments, GetHelpRequestMessage, IGetHelpRequestArguments } from "./messages";
 
 async function getCurrentSelection(mode: string) {
     let doc = await workspace.document
@@ -96,6 +96,13 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
 
         let cmdEvalLine = commands.registerCommand("powershell.evaluateLine", async () => doEval('n'));
         let cmdEvalSelection = commands.registerCommand("powershell.evaluateSelection", async () => doEval('v'));
+        let cmdGetHelp = commands.registerCommand("powershell.getHelp", async () => {
+            const getHelpArgs: IGetHelpRequestArguments = {
+                expression: 'Get-Command',
+            }
+            client.sendRequest(GetHelpRequestMessage, getHelpArgs)
+            await proc.scrollToBottom()
+        });
         let cmdExecFile = commands.registerCommand("powershell.execute", async (...args: any[]) => {
             let document = await workspace.document
             if (!document || document.filetype !== 'ps1') {
@@ -121,7 +128,7 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
 
         // Push the disposable to the context's subscriptions so that the 
         // client can be deactivated on extension deactivation
-        context.subscriptions.push(disposable, cmdExecFile, cmdEvalLine, cmdEvalSelection);
+        context.subscriptions.push(disposable, cmdExecFile, cmdEvalLine, cmdEvalSelection, cmdGetHelp);
 
         return proc.onExited
     }
