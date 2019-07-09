@@ -81,7 +81,7 @@ export class PowerShellProcess {
         })
 
         if (!this.config.integratedConsole.showOnStartup) {
-            this.consoleTerminal.hide()
+            this.consoleTerminal.hide();
         }
 
         await new Promise((resolve, reject) => {
@@ -116,22 +116,15 @@ export class PowerShellProcess {
         return this.sessionDetails
     }
 
-    public showConsole(preserveFocus: boolean) {
+    public async showTerminalIfVisible() {
         if (this.consoleTerminal) {
-            this.consoleTerminal.show(preserveFocus);
-        }
-    }
+            const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnr})`) as number;
 
-    public async eval(line: string) {
-        if (this.consoleTerminal) {
-            this.consoleTerminal.sendText(line)
+            // If winid is -1, it means the window is not visible/is hidden.
+            if (winid > -1) {
+                this.consoleTerminal.show(!this.config.integratedConsole.focusConsoleOnExecute);
+            }
         }
-    }
-
-    public async scrollToBottom() {
-        this.consoleTerminal.show(false)
-        await utils.sleep(100)
-        await vscode.workspace.nvim.command("wincmd w")
     }
 
     public dispose() {
