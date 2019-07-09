@@ -66,7 +66,7 @@ export class PowerShellProcess {
             "-NonInteractive",
             path.join(this.bundledModulesPath, "/PowerShellEditorServices/Start-EditorServices.ps1"),
             "-HostName", "coc.vim",
-            "-HostProfileId", "0",
+            "-HostProfileId", "coc.vim",
             "-HostVersion", "2.0.0",
             "-LogPath", path.join(logDir, "log.txt"),
             "-LogLevel", this.config.developer.editorServicesLogLevel || "Normal",
