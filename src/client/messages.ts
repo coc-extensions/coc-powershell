@@ -10,6 +10,3 @@ export interface IEvaluateRequestArguments {
     expression: string;
 }
 export const GetHelpRequestMessage = "powerShell/showHelp";
-export interface IGetHelpRequestArguments {
-    expression: string;
-}

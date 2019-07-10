@@ -11,7 +11,7 @@ import { fileURLToPath, sleep } from './utils'
 import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
 import settings = require("./settings");
 import * as process from './process';
-import { EvaluateRequestMessage, IEvaluateRequestArguments, GetHelpRequestMessage, IGetHelpRequestArguments } from "./messages";
+import { EvaluateRequestMessage, IEvaluateRequestArguments, GetHelpRequestMessage } from "./messages";
 
 async function getCurrentSelection(mode: string) {
     let doc = await workspace.document
@@ -97,9 +97,7 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
         let cmdEvalLine = commands.registerCommand("powershell.evaluateLine", async () => doEval('n'));
         let cmdEvalSelection = commands.registerCommand("powershell.evaluateSelection", async () => doEval('v'));
         let cmdGetHelp = commands.registerCommand("powershell.getHelp", async () => {
-            const getHelpArgs: IGetHelpRequestArguments = {
-                expression: 'Get-Command',
-            }
+            const getHelpArgs: string = 'test'
             client.sendRequest(GetHelpRequestMessage, getHelpArgs)
             await proc.scrollToBottom()
         });
