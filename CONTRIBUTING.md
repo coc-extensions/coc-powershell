@@ -53,7 +53,7 @@ To contribute documentation:
 - Re-read what you wrote, and run a spellchecker on it to make sure you didn't miss anything.
 - In your commit message(s), begin the first line with `docs:`. For example: `docs: Adding a doc contrib section to CONTRIBUTING.md`.
 - Write clear, concise commit message(s) using [conventional-changelog format](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md). Documentation commits should use `docs(<component>): <message>`.
-- Go to https://github.com/neoclide/coc.nvim/pulls and open a new pull request with your changes.
+- Go to https://github.com/yatli/coc-powershell/pulls and open a new pull request with your changes.
 - If your PR is connected to an open issue, add a line in your PR's description that says `Fixes: #123`, where `#123` is the number of the issue you're fixing.
 
 ## Contribute Code
@@ -69,13 +69,10 @@ To contribute code:
 - [Set up the project](#project-setup).
 - Make any necessary changes to the source code.
 - Include any [additional documentation](#contribute-documentation) the changes might need.
-- Make sure the code doesn't have lint issue by command `yarn lint` in your
-  terminal.
 - Write tests that verify that your contribution works as expected when necessary.
-- Make sure all tests passed by command `yarn jest` in your terminal.
 - Write clear, concise commit message(s) using [conventional-changelog format](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md).
 - Dependency updates, additions, or removals must be in individual commits, and the message must use the format: `<prefix>(deps): PKG@VERSION`, where `<prefix>` is any of the usual `conventional-changelog` prefixes, at your discretion.
-- Go to https://github.com/neoclide/coc.nvim/pulls and open a new pull request with your changes.
+- Go to https://github.com/yatli/coc-powershell/pulls and open a new pull request with your changes.
 - If your PR is connected to an open issue, add a line in your PR's description that says `Fixes: #123`, where `#123` is the number of the issue you're fixing.
 
 Once you've filed the PR:
@@ -96,7 +93,6 @@ Sometimes, the `support` label will be added to things that turn out to actually
 
 In order to help other folks out with their questions:
 
-- Go to the issue tracker and [filter open issues by the `support` label](https://github.com/neoclide/coc.nvim/issues?q=is%3Aopen+is%3Aissue+label%3Asupport).
 - Read through the list until you find something that you're familiar enough with to give an answer to.
 - Respond to the issue with whatever details are needed to clarify the question, or get more details about what's going on.
 - Once the discussion wraps up and things are clarified, either close the issue, or ask the original issue filer (or a maintainer) to close it for you.
