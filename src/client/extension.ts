@@ -109,14 +109,15 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
             let filePath = fileURLToPath(document.uri)
             proc.log.appendLine(`executing: ${filePath}`)
 
-            let term = await workspace.createTerminal({
-                name: `PowerShell: ${filePath}`,
-                shellPath: pwshPath,
-                shellArgs: ['-NoProfile', filePath].concat(argStrs)
-            })
+            // Escape single quotes by adding a second single quote.
+            if(filePath.indexOf('\'') !== -1) {
+                filePath = filePath.replace(/'/, '\'\'')
+            }
 
-            // switch to the terminal and steal focus
-            term.show(false)
+            const evaluateArgs: IEvaluateRequestArguments = {
+                expression: `& '${filePath}'`,
+            }
+            client.sendRequest(EvaluateRequestMessage, evaluateArgs)
         })
 
         // Push the disposable to the context's subscriptions so that the 
