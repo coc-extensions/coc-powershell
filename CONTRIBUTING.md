@@ -1,5 +1,7 @@
 # Contributing
 
+Shamelessly taken from the [coc.nvim](https://github.com/neoclide/coc.nvim) project with sincere thanks.
+
 ## How do I... <a name="toc"></a>
 
 - [Use This Guide](#introduction)?
@@ -24,6 +26,8 @@ So you wanna contribute some code! That's great! This project uses GitHub Pull R
 
 If this seems like a lot or you aren't able to do all this setup, you might also be able to [edit the files directly](https://help.github.com/articles/editing-files-in-another-user-s-repository/) without having to do any of this setup. Yes, [even code](#contribute-code).
 
+### Run Project Locally
+
 If you want to go the usual route and run the project locally, though:
 
 - [Install PowerShell](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell)
@@ -36,6 +40,10 @@ Then in your (PowerShell) terminal:
 - Add coc-powershell to your vim's rtp by `set runtimepath^=/path/to/coc-powershell`
 - `cd path/to/your/coc-powershell`
 - `./build.ps1`
+
+### Run Project Within a Docker Container
+
+If you'd like to use a Docker Container to run and test your changes, we have a prebuild DockerFile available in the `tools` directory.
 
 And you should be ready to go!
 
@@ -70,8 +78,7 @@ To contribute code:
 - Make any necessary changes to the source code.
 - Include any [additional documentation](#contribute-documentation) the changes might need.
 - Write tests that verify that your contribution works as expected when necessary.
-- Write clear, concise commit message(s) using [conventional-changelog format](https://github.com/conventional-changelog/conventional-changelog-angular/blob/master/convention.md).
-- Dependency updates, additions, or removals must be in individual commits, and the message must use the format: `<prefix>(deps): PKG@VERSION`, where `<prefix>` is any of the usual `conventional-changelog` prefixes, at your discretion.
+- Dependency updates, additions, or removals should be in individual commits.
 - Go to https://github.com/yatli/coc-powershell/pulls and open a new pull request with your changes.
 - If your PR is connected to an open issue, add a line in your PR's description that says `Fixes: #123`, where `#123` is the number of the issue you're fixing.
 
