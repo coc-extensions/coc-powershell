@@ -1,6 +1,7 @@
 # Contributing
 
 Shamelessly taken from the [coc.nvim](https://github.com/neoclide/coc.nvim) project with sincere thanks.
+For the purposes of this document, we will use `vim` to refer to either [vim](https://www.vim.org) or [neovim](https://neovim.io). `vimrc` will refer to the vimrc or init.vim wherever it may reside.
 
 ## How do I... <a name="toc"></a>
 
@@ -34,16 +35,15 @@ If you want to go the usual route and run the project locally, though:
 - [Install Node.js](https://nodejs.org/en/download/)
 - [Install npm](https://npmjs.com)
 - [Fork the project](https://guides.github.com/activities/forking/#fork)
-
-Then in your (PowerShell) terminal:
-
-- Add coc-powershell to your vim's rtp by `set runtimepath^=/path/to/coc-powershell`
-- `cd path/to/your/coc-powershell`
-- `./build.ps1`
-
-### Run Project Within a Docker Container
-
-If you'd like to use a Docker Container to run and test your changes, we have a prebuild DockerFile available in the `tools` directory.
+- In your PowerShell terminal
+  - `cd path/to/your/coc-powershell`
+  - `./build.ps1`
+- Edit your vimrc
+  - Add `set runtimepath^=/path/to/coc-powershell`
+- Launch vim
+- Verify `coc-powershell` has been installed with `:CocList extension`
+  - `coc-powershell` should show with `[RTP]` and `/path/to/coc-powershell`
+  - If you've installed coc-powershell with `:CocInstall` you may need to `:CocUninstall coc-powershell` then reload vim
 
 And you should be ready to go!
 
@@ -70,7 +70,7 @@ We like code commits a lot! They're super handy, and they keep the project going
 
 Code contributions of just about any size are acceptable!
 
-The main difference between code contributions and documentation contributions is that contributing code requires inclusion of relevant tests for the code being added or changed. Contributions without accompanying tests will be held off until a test is added, unless the maintainers consider the specific tests to be either impossible, or way too much of a burden for such a contribution.
+The main difference between code contributions and documentation contributions is that contributing code encourages the inclusion of relevant tests for the code being added or changed.
 
 To contribute code:
 
