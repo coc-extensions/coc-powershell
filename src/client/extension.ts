@@ -7,7 +7,7 @@
 import * as net from 'net';
 import { commands, workspace, ExtensionContext, events } from 'coc.nvim';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, StreamInfo } from 'coc.nvim';
-import { fileURLToPath, sleep } from './utils'
+import { fileURLToPath } from './utils'
 import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
 import settings = require("./settings");
 import * as process from './process';
@@ -99,7 +99,14 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
         let cmdExecFile = commands.registerCommand("powershell.execute", async (...args: any[]) => {
             let document = await workspace.document
             if (!document || document.filetype !== 'ps1') {
-                return
+                return;
+            }
+
+            if(document.schema === "untitled") {
+                workspace.showMessage(
+                    "Can't run file because it's an in-memory file. Save the contents to a file and try again.",
+                    'error');
+                return;
             }
 
             let argStrs = args
@@ -114,10 +121,20 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
                 filePath = filePath.replace(/'/, '\'\'')
             }
 
+            // workaround until document.dirty works
+            if (Number.parseInt(await workspace.nvim.commandOutput("echo &modified"))) {
+                if(! await workspace.showPrompt("Your file will be saved first before it runs. Is that ok?")) {
+                    return;
+                }
+                // workaround until document.textDocument.save() is supported.
+                await workspace.nvim.command('w');
+            }
+
             const evaluateArgs: IEvaluateRequestArguments = {
                 expression: `& '${filePath}'`,
-            }
-            client.sendRequest(EvaluateRequestMessage, evaluateArgs)
+            };
+            await client.sendRequest(EvaluateRequestMessage, evaluateArgs);
+            await proc.showTerminalIfVisible();
         })
 
         // Push the disposable to the context's subscriptions so that the 
