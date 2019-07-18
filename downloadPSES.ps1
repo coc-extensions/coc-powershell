@@ -25,8 +25,6 @@ Write-Host Latest Release: $tag
 
 $download = "https://github.com/$repo/releases/download/$tag/$file"
 $zip = "pses.zip"
-
-$null = New-Item -Name $dir -ItemType Directory -Force
 Write-Host Downloading PowerShell Editor Services: $tag
 Invoke-WebRequest $download -OutFile $zip
 
