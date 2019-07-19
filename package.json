@@ -37,9 +37,16 @@
         "src/downloadPSES.ps1",
         "README.md",
         "LICENSE",
+	"Snippets",
         "PowerShellEditorServices"
     ],
     "contributes": {
+	"snippets": [
+		{
+			"language": "ps1",
+			"path": "Snippets/PowerShell.json"
+		}
+	],
         "languages": [
             {
                 "id": "ps1",
