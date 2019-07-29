@@ -40,6 +40,22 @@ async function getCurrentSelection(mode: string) {
     return []
 }
 
+async function getSelectedTextToExecute(mode: string): Promise<string> {
+    let doc = workspace.getDocument(workspace.bufnr);
+    if (!doc) return "";
+
+    if (mode === 'n') {
+        // get whole line.
+        let range = await workspace.getCursorPosition();
+        if (range) return doc.getline(range.line);
+    } else {
+        let range = await workspace.getSelectedRange(mode, doc);
+        if (range) return doc.textDocument.getText(range);
+    }
+
+    return "";
+}
+
 function startREPLProc(context: ExtensionContext, config: settings.ISettings, pwshPath: string, title: string) { 
     return async () => {
         let proc = new process.PowerShellProcess(config, pwshPath, title) 
@@ -81,9 +97,7 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
                 return
             }
 
-            // TODO: move to workspace.getCurrentSelection when we get an answer:
-            // https://github.com/neoclide/coc.nvim/issues/933
-            const content = (await getCurrentSelection(mode)).join("\n");
+            const content = await getSelectedTextToExecute(mode);
 
             const evaluateArgs: IEvaluateRequestArguments = {
                 expression: content,
