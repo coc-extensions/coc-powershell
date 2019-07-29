@@ -13,33 +13,6 @@ import settings = require("./settings");
 import * as process from './process';
 import { EvaluateRequestMessage, IEvaluateRequestArguments } from "./messages";
 
-async function getCurrentSelection(mode: string) {
-    let doc = await workspace.document
-
-    if (mode === "v" || mode === "V") {
-        let [from, _ ] = await doc.buffer.mark("<")
-        let [to, __  ] = await doc.buffer.mark(">")
-        let result: string[] = []
-        for(let i = from; i <= to; ++i)
-        {
-            result.push(doc.getline(i - 1))
-        }
-        return result
-    }
-    else if (mode === "n") {
-        let line = await workspace.nvim.call('line', '.')
-        return [doc.getline(line - 1)]
-    }
-    else if (mode === "i") {
-        // TODO what to do in insert mode?
-    }
-    else if (mode === "t") {
-        //TODO what to do in terminal mode?
-    }
-
-    return []
-}
-
 async function getSelectedTextToExecute(mode: string): Promise<string> {
     let doc = workspace.getDocument(workspace.bufnr);
     if (!doc) return "";
