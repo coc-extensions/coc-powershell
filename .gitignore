@@ -1,5 +1,6 @@
 *.zip
 PowerShellEditorServices/
+Snippets/
 .pses
 node_modules
 out

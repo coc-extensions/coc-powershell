@@ -38,4 +38,6 @@ let g:coc_global_extensions=[ 'coc-powershell', ... ]
 
 ## Recommended plugins
 
-[vim-polyglot](https://github.com/sheerun/vim-polyglot) for syntax highlighting 🎨
+* [coc-snippets](https://github.com/neoclide/coc-snippets) Used to allow snippets [(requires neovim 0.4 or latest vim8)](https://github.com/neoclide/coc.nvim/wiki/F.A.Q#how-to-make-preview-window-shown-aside-with-pum).
+  * Can be installed with `:CocInstall coc-snippets`
+* [vim-polyglot](https://github.com/sheerun/vim-polyglot) for syntax highlighting 🎨
