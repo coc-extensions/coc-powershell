@@ -9,3 +9,4 @@ export const EvaluateRequestMessage = "evaluate";
 export interface IEvaluateRequestArguments {
     expression: string;
 }
+export const GetHelpRequestMessage = "powerShell/showHelp";

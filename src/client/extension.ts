@@ -11,11 +11,12 @@ import { fileURLToPath } from './utils'
 import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
 import settings = require("./settings");
 import * as process from './process';
-import { EvaluateRequestMessage, IEvaluateRequestArguments } from "./messages";
+import { EvaluateRequestMessage, IEvaluateRequestArguments, GetHelpRequestMessage } from "./messages";
 
 async function getCurrentSelection(mode: string) {
     let doc = await workspace.document
 
+    // This doesn't actually get the selection... It gets the lines... As though the mode was V-LINE and not VISUAL...
     if (mode === "v" || mode === "V") {
         let [from, _ ] = await doc.buffer.mark("<")
         let [to, __  ] = await doc.buffer.mark(">")
@@ -92,10 +93,16 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
 
             await proc.showTerminalIfVisible();
         }
-
+        let getHelp = async function(mode: string) {
+            const getHelpArgs: string = (await getCurrentSelection(mode)).join("");
+            client.sendRequest(GetHelpRequestMessage, getHelpArgs)
+            await proc.showTerminalIfVisible()
+        }
 
         let cmdEvalLine = commands.registerCommand("powershell.evaluateLine", async () => doEval('n'));
+        // This isn't actually evaluating the selection.... it's evaluating the entire line....
         let cmdEvalSelection = commands.registerCommand("powershell.evaluateSelection", async () => doEval('v'));
+        let cmdGetHelp = commands.registerCommand("powershell.getHelp", async () => getHelp('v'));
         let cmdExecFile = commands.registerCommand("powershell.execute", async (...args: any[]) => {
             let document = await workspace.document
             if (!document || document.filetype !== 'ps1') {
@@ -137,9 +144,9 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
             await proc.showTerminalIfVisible();
         })
 
-        // Push the disposable to the context's subscriptions so that the 
+        // Push the disposable to the context's subscriptions so that the
         // client can be deactivated on extension deactivation
-        context.subscriptions.push(disposable, cmdExecFile, cmdEvalLine, cmdEvalSelection);
+        context.subscriptions.push(disposable, cmdExecFile, cmdEvalLine, cmdEvalSelection, cmdGetHelp);
 
         return proc.onExited
     }
@@ -151,7 +158,7 @@ export async function activate(context: ExtensionContext) {
 
     let config = settings.load()
     let pwshPath = config.powerShellExePath
-        ? this.config.powerShellExePath 
+        ? this.config.powerShellExePath
         : getDefaultPowerShellPath(getPlatformDetails())
 
     // Status bar entry showing PS version
