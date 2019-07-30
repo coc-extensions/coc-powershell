@@ -13,31 +13,20 @@ import settings = require("./settings");
 import * as process from './process';
 import { EvaluateRequestMessage, IEvaluateRequestArguments } from "./messages";
 
-async function getCurrentSelection(mode: string) {
-    let doc = await workspace.document
+async function getSelectedTextToExecute(mode: string): Promise<string> {
+    let doc = workspace.getDocument(workspace.bufnr);
+    if (!doc) return "";
 
-    if (mode === "v" || mode === "V") {
-        let [from, _ ] = await doc.buffer.mark("<")
-        let [to, __  ] = await doc.buffer.mark(">")
-        let result: string[] = []
-        for(let i = from; i <= to; ++i)
-        {
-            result.push(doc.getline(i - 1))
-        }
-        return result
-    }
-    else if (mode === "n") {
-        let line = await workspace.nvim.call('line', '.')
-        return [doc.getline(line - 1)]
-    }
-    else if (mode === "i") {
-        // TODO what to do in insert mode?
-    }
-    else if (mode === "t") {
-        //TODO what to do in terminal mode?
+    if (mode === 'n') {
+        // get whole line.
+        let range = await workspace.getCursorPosition();
+        if (range) return doc.getline(range.line);
+    } else {
+        let range = await workspace.getSelectedRange(mode, doc);
+        if (range) return doc.textDocument.getText(range);
     }
 
-    return []
+    return "";
 }
 
 function startREPLProc(context: ExtensionContext, config: settings.ISettings, pwshPath: string, title: string) { 
@@ -81,9 +70,7 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
                 return
             }
 
-            // TODO: move to workspace.getCurrentSelection when we get an answer:
-            // https://github.com/neoclide/coc.nvim/issues/933
-            const content = (await getCurrentSelection(mode)).join("\n");
+            const content = await getSelectedTextToExecute(mode);
 
             const evaluateArgs: IEvaluateRequestArguments = {
                 expression: content,
