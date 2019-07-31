@@ -5,7 +5,7 @@
     "author": "Yatao Li, Tyler Leonhardt, Cory Knox",
     "license": "MIT",
     "readme": "README.md",
-    "version": "0.0.19",
+    "version": "0.0.20",
     "publisher": "yatli, tylerl0706, corbob",
     "repository": {
         "type": "git",
@@ -293,7 +293,20 @@
                     "description": "Deprecated. Please use the 'powershell.powerShellExePath' setting instead"
                 }
             }
-        }
+        },
+        "rootPatterns": [
+            {
+                "filetype": "ps1",
+                "patterns": [
+                    "*.ps1",
+                    "*.psd1",
+                    "*.psm1",
+                    ".vim",
+                    ".git",
+                    ".hg"
+                ]
+            }
+        ]
     },
     "scripts": {
         "compile": "tsc -p ./",

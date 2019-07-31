@@ -134,8 +134,6 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
 
 export async function activate(context: ExtensionContext) {
 
-	workspace.addRootPatterns('ps1', ['*.ps1', '*.psd1', '*.psm1', '.vim', '.git', '.hg'])
-
     let config = settings.load()
     let pwshPath = config.powerShellExePath
         ? this.config.powerShellExePath 
