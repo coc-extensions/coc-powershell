@@ -65,7 +65,7 @@ call plug#end()\n\
 autocmd FileType ps1 setlocal shell=pwsh" >> ~/.vimrc
 
 RUN vim +PlugInstall +qall
-RUN vim -c 'CocInstall -sync coc-powershell|q'
+RUN vim -c 'CocInstall -sync coc-powershell coc-snippets coc-json|q'
 
 RUN rm -rf /tmp/coc-nvim*
 
@@ -87,7 +87,7 @@ call plug#end()\n\
 autocmd FileType ps1 setlocal shell=pwsh" >> ~/.config/nvim/init.vim
 
 RUN nvim +PlugInstall +qall
-RUN nvim -c 'CocInstall -sync coc-powershell|q'
+RUN nvim -c 'CocInstall -sync coc-powershell coc-snippets coc-json|q'
 
 USER root
 RUN usermod -s /usr/bin/pwsh vim
