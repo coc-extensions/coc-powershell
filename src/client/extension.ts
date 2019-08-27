@@ -136,7 +136,7 @@ export async function activate(context: ExtensionContext) {
 
     let config = settings.load()
     let pwshPath = config.powerShellExePath
-        ? this.config.powerShellExePath 
+        ? config.powerShellExePath
         : getDefaultPowerShellPath(getPlatformDetails())
 
     // Status bar entry showing PS version
