@@ -81,6 +81,10 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
         }
 
 
+        let cmdShowTerminal = commands.registerCommand("powershell.showTerminal", await proc.showTerminal());
+        let cmdHideTerminal = commands.registerCommand("powershell.hideTerminal", await proc.hideTerminal());
+        let cmdToggleTerminal = commands.registerCommand("powershell.toggleTerminal", await proc.toggleTerminal());
+
         let cmdEvalLine = commands.registerCommand("powershell.evaluateLine", async () => doEval('n'));
         let cmdEvalSelection = commands.registerCommand("powershell.evaluateSelection", async () => doEval('v'));
         let cmdExecFile = commands.registerCommand("powershell.execute", async (...args: any[]) => {
@@ -118,7 +122,7 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
             }
 
             const evaluateArgs: IEvaluateRequestArguments = {
-                expression: `& '${filePath}'`,
+                expression: `. '${filePath}'`,
             };
             await client.sendRequest(EvaluateRequestMessage, evaluateArgs);
             await proc.showTerminalIfVisible();
@@ -126,7 +130,7 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
 
         // Push the disposable to the context's subscriptions so that the 
         // client can be deactivated on extension deactivation
-        context.subscriptions.push(disposable, cmdExecFile, cmdEvalLine, cmdEvalSelection);
+        context.subscriptions.push(disposable, cmdExecFile, cmdEvalLine, cmdEvalSelection, cmdShowTerminal, cmdHideTerminalcmd, ToggleTerminal );
 
         return proc.onExited
     }

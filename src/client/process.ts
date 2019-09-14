@@ -116,16 +116,32 @@ export class PowerShellProcess {
         return this.sessionDetails
     }
 
-    public async showTerminalIfVisible() {
+    public async showTerminalIfHidden() {
         if (this.consoleTerminal) {
-            const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnr})`) as number;
+            const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnyyr})`) as number;
 
-            // If winid is -1, it means the window is not visible/is hidden.
-            if (winid > -1) {
-                this.consoleTerminal.show(!this.config.integratedConsole.focusConsoleOnExecute);
+          // show terminal if hidded when running F5/F8
+            if (winid == -1) {
+                this.consoleTerminal.show();
+            }
+
+            // this fill move cursor to consol after F5/F8
+            if (this.config.integratedConsole.focusConsoleOnExecute) {
+               this.consoleTerminal.show();
             }
         }
     }
+    
+    public async showTerminal() {this.consoleTerminal.show();}
+}
+    public async hideTerminal() {this.consoleTerminal.show();}
+
+    public async toggleTerminal() {
+            const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnyyr})`) as number;
+            if (winid == -1) {
+                this.consoleTerminal.show();
+            } else { this.consoleTerminal.show(); }
+    } 
 
     public dispose() {
 
