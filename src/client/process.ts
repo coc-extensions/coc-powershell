@@ -116,9 +116,9 @@ export class PowerShellProcess {
         return this.sessionDetails
     }
 
-    public async showTerminalIfHidden() {
+    public async showTerminalIfVisible() {
         if (this.consoleTerminal) {
-            const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnyyr})`) as number;
+            const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnr})`) as number;
 
           // show terminal if hidded when running F5/F8
             if (winid == -1) {
@@ -133,17 +133,18 @@ export class PowerShellProcess {
     }
     
     public async showTerminal() {this.consoleTerminal.show();}
-}
-    public async hideTerminal() {this.consoleTerminal.show();}
-
+    public async hideTerminal() {this.consoleTerminal.hide();}
     public async toggleTerminal() {
-            const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnyyr})`) as number;
+            const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnr})`) as number;
             if (winid == -1) {
                 this.consoleTerminal.show();
-            } else { this.consoleTerminal.show(); }
+            } else { this.consoleTerminal.hide(); }
     } 
 
-    public dispose() {
+
+
+
+    public  dispose() {
 
         // Clean up the session file
         utils.deleteSessionFile(this.sessionFilePath);

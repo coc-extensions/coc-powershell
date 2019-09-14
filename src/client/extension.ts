@@ -81,9 +81,9 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
         }
 
 
-        let cmdShowTerminal = commands.registerCommand("powershell.showTerminal", await proc.showTerminal());
-        let cmdHideTerminal = commands.registerCommand("powershell.hideTerminal", await proc.hideTerminal());
-        let cmdToggleTerminal = commands.registerCommand("powershell.toggleTerminal", await proc.toggleTerminal());
+      let cmdShowTerminal = commands.registerCommand("powershell.showTerminal", async () =>  proc.showTerminal());
+      let cmdHideTerminal = commands.registerCommand("powershell.hideTerminal",  async () => proc.hideTerminal());
+      let cmdToggleTerminal = commands.registerCommand("powershell.toggleTerminal", async () => proc.toggleTerminal());
 
         let cmdEvalLine = commands.registerCommand("powershell.evaluateLine", async () => doEval('n'));
         let cmdEvalSelection = commands.registerCommand("powershell.evaluateSelection", async () => doEval('v'));
@@ -130,7 +130,7 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
 
         // Push the disposable to the context's subscriptions so that the 
         // client can be deactivated on extension deactivation
-        context.subscriptions.push(disposable, cmdExecFile, cmdEvalLine, cmdEvalSelection, cmdShowTerminal, cmdHideTerminalcmd, ToggleTerminal );
+        context.subscriptions.push(disposable, cmdExecFile, cmdEvalLine, cmdEvalSelection, cmdShowTerminal, cmdHideTerminal, cmdToggleTerminal );
 
         return proc.onExited
     }
