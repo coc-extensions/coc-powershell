@@ -29,297 +29,301 @@
     ],
     "activationEvents": [
         "onLanguage:ps1"
+  ],
+  "main": "out/client/extension.js",
+  "files": [
+    "out",
+    "syntaxes",
+    "src/downloadPSES.ps1",
+    "README.md",
+    "LICENSE",
+    "Snippets",
+    "PowerShellEditorServices"
+  ],
+  "contributes": {
+    "snippets": [
+      {
+        "language": "ps1",
+        "path": "Snippets/PowerShell.json"
+      }
     ],
-    "main": "out/client/extension.js",
-    "files": [
-        "out",
-        "syntaxes",
-        "src/downloadPSES.ps1",
-        "README.md",
-        "LICENSE",
-        "Snippets",
-        "PowerShellEditorServices"
-    ],
-    "contributes": {
-        "snippets": [
-            {
-                "language": "ps1",
-                "path": "Snippets/PowerShell.json"
-            }
+    "languages": [
+      {
+        "id": "ps1",
+        "aliases": [
+          "PowerShell",
+          "pwsh"
         ],
-        "languages": [
-            {
-                "id": "ps1",
-                "aliases": [
-                    "PowerShell",
-                    "pwsh"
-                ],
-                "extensions": [
-                    ".ps1",
-                    ".psm1",
-                    ".psd1"
-                ]
-            }
-        ],
-        "grammars": [],
-        "configuration": {
-            "type": "object",
-            "title": "PowerShell Configuration",
-            "properties": {
-                "powershell.sideBar.CommandExplorerVisibility": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Specifies the visibility of the Command Explorer in the PowerShell Side Bar."
-                },
-                "powershell.sideBar.CommandExplorerExcludeFilter": {
-                    "type": "array",
-                    "default": [],
-                    "description": "Specify array of Modules to exclude from Command Explorer listing."
-                },
-                "powershell.powerShellExePath": {
-                    "type": "string",
-                    "default": "",
-                    "isExecutable": true,
-                    "description": "Specifies the full path to a PowerShell executable. Changes the installation of PowerShell used for language and debugging services."
-                },
-                "powershell.powerShellAdditionalExePaths": {
-                    "type": "array",
-                    "description": "Specifies an array of versionName / exePath pairs where exePath points to a non-standard install location for PowerShell and versionName can be used to reference this path with the powershell.powerShellDefaultVersion setting.",
-                    "isExecutable": true,
-                    "uniqueItems": true,
-                    "items": {
-                        "type": "object",
-                        "required": [
-                            "versionName",
-                            "exePath"
-                        ],
-                        "properties": {
-                            "versionName": {
-                                "type": "string",
-                                "description": "Specifies the version name of this PowerShell executable. The version name can be referenced via the powershell.powerShellDefaultVersion setting."
-                            },
-                            "exePath": {
-                                "type": "string",
-                                "description": "Specifies the path to the PowerShell executable. Typically this is a path to a non-standard install location."
-                            }
-                        }
-                    }
-                },
-                "powershell.powerShellDefaultVersion": {
-                    "type": "string",
-                    "description": "Specifies the PowerShell version name, as displayed by the 'PowerShell: Show Session Menu' command, used when the extension loads e.g \"Windows PowerShell (x86)\" or \"PowerShell Core 6 (x64)\"."
-                },
-                "powershell.startAutomatically": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Starts PowerShell extension features automatically when a PowerShell file opens. If false, to start the extension, use the 'PowerShell: Restart Current Session' command. IntelliSense, code navigation, integrated console, code formatting, and other features are not enabled until the extension starts."
-                },
-                "powershell.useX86Host": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Uses the 32-bit language service on 64-bit Windows. This setting has no effect on 32-bit Windows or on the PowerShell extension debugger, which has its own architecture configuration."
-                },
-                "powershell.enableProfileLoading": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Loads user and system-wide PowerShell profiles (profile.ps1 and Microsoft.VSCode_profile.ps1) into the PowerShell session. This affects IntelliSense and interactive script execution, but it does not affect the debugger."
-                },
-                "powershell.bugReporting.project": {
-                    "type": "string",
-                    "default": "https://github.com/PowerShell/vscode-powershell",
-                    "description": "Specifies the url of the GitHub project in which to generate bug reports."
-                },
-                "powershell.helpCompletion": {
-                    "type": "string",
-                    "enum": [
-                        "Disabled",
-                        "BlockComment",
-                        "LineComment"
-                    ],
-                    "default": "BlockComment",
-                    "description": "Controls the comment-based help completion behavior triggered by typing '##'. Set the generated help style with 'BlockComment' or 'LineComment'. Disable the feature with 'Disabled'."
-                },
-                "powershell.scriptAnalysis.enable": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enables real-time script analysis from PowerShell Script Analyzer. Uses the newest installed version of the PSScriptAnalyzer module or the version bundled with this extension, if it is newer."
-                },
-                "powershell.scriptAnalysis.settingsPath": {
-                    "type": "string",
-                    "default": "",
-                    "description": "Specifies the path to a PowerShell Script Analyzer settings file. To override the default settings for all projects, enter an absolute path, or enter a path relative to your workspace."
-                },
-                "powershell.codeFolding.enable": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Enables syntax based code folding. When disabled, the default indentation based code folding is used."
-                },
-                "powershell.codeFolding.showLastLine": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Shows the last line of a folded section similar to the default VSCode folding style. When disabled, the entire folded region is hidden."
-                },
-                "powershell.codeFormatting.preset": {
-                    "type": "string",
-                    "enum": [
-                        "Custom",
-                        "Allman",
-                        "OTBS",
-                        "Stroustrup"
-                    ],
-                    "default": "Custom",
-                    "description": "Sets the codeformatting options to follow the given indent style in a way that is compatible with PowerShell syntax. For more information about the brace styles please refer to https://github.com/PoshCode/PowerShellPracticeAndStyle/issues/81."
-                },
-                "powershell.codeFormatting.openBraceOnSameLine": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Places open brace on the same line as its associated statement."
-                },
-                "powershell.codeFormatting.newLineAfterOpenBrace": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Adds a newline (line break) after an open brace."
-                },
-                "powershell.codeFormatting.newLineAfterCloseBrace": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Adds a newline (line break) after a closing brace."
-                },
-                "powershell.codeFormatting.pipelineIndentationStyle": {
-                    "type": "string",
-                    "enum": [
-                        "IncreaseIndentationForFirstPipeline",
-                        "IncreaseIndentationAfterEveryPipeline",
-                        "NoIndentation"
-                    ],
-                    "default": "NoIndentation",
-                    "description": "Multi-line pipeline style settings."
-                },
-                "powershell.codeFormatting.whitespaceBeforeOpenBrace": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Adds a space between a keyword and its associated scriptblock expression."
-                },
-                "powershell.codeFormatting.whitespaceBeforeOpenParen": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Adds a space between a keyword (if, elseif, while, switch, etc) and its associated conditional expression."
-                },
-                "powershell.codeFormatting.whitespaceAroundOperator": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Adds spaces before and after an operator ('=', '+', '-', etc.)."
-                },
-                "powershell.codeFormatting.whitespaceAfterSeparator": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Adds a space after a separator (',' and ';')."
-                },
-                "powershell.codeFormatting.whitespaceInsideBrace": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Adds a space after an opening brace ('{') and before a closing brace ('}')."
-                },
-                "powershell.codeFormatting.whitespaceAroundPipe": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Adds a space before and after the pipeline operator ('|')."
-                },
-                "powershell.codeFormatting.ignoreOneLineBlock": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Does not reformat one-line code blocks, such as \"if (...) {...} else {...}\"."
-                },
-                "powershell.codeFormatting.alignPropertyValuePairs": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Align assignment statements in a hashtable or a DSC Configuration."
-                },
-                "powershell.codeFormatting.useCorrectCasing": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Use correct casing for cmdlets."
-                },
-                "powershell.integratedConsole.showOnStartup": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Shows the integrated console when the PowerShell extension is initialized."
-                },
-                "powershell.integratedConsole.focusConsoleOnExecute": {
-                    "type": "boolean",
-                    "default": true,
-                    "description": "Switches focus to the console when a script selection is run or a script file is debugged. This is an accessibility feature. To disable it, set to false."
-                },
-                "powershell.debugging.createTemporaryIntegratedConsole": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Determines whether a temporary PowerShell Integrated Console is created for each debugging session, useful for debugging PowerShell classes and binary modules."
-                },
-                "powershell.developer.bundledModulesPath": {
-                    "type": "string",
-                    "description": "Specifies an alternate path to the folder containing modules that are bundled with the PowerShell extension (i.e. PowerShell Editor Services, PSScriptAnalyzer, Plaster)"
-                },
-                "powershell.developer.editorServicesLogLevel": {
-                    "type": "string",
-                    "enum": [
-                        "Diagnostic",
-                        "Verbose",
-                        "Normal",
-                        "Warning",
-                        "Error"
-                    ],
-                    "default": "Normal",
-                    "description": "Sets the logging verbosity level for the PowerShell Editor Services host executable.  Valid values are 'Diagnostic', 'Verbose', 'Normal', 'Warning', and 'Error'"
-                },
-                "powershell.developer.editorServicesWaitForDebugger": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Launches the language service with the /waitForDebugger flag to force it to wait for a .NET debugger to attach before proceeding."
-                },
-                "powershell.developer.featureFlags": {
-                    "type": "array",
-                    "default": null,
-                    "description": "An array of strings that enable experimental features in the PowerShell extension."
-                },
-                "powershell.developer.powerShellExeIsWindowsDevBuild": {
-                    "type": "boolean",
-                    "default": false,
-                    "description": "Indicates that the powerShellExePath points to a developer build of Windows PowerShell and configures it for development."
-                },
-                "powershell.developer.powerShellExePath": {
-                    "type": "string",
-                    "default": "",
-                    "isExecutable": true,
-                    "description": "Deprecated. Please use the 'powershell.powerShellExePath' setting instead"
-                }
-            }
-        },
-        "rootPatterns": [
-            {
-                "filetype": "ps1",
-                "patterns": [
-                    "*.ps1",
-                    "*.psd1",
-                    "*.psm1",
-                    ".vim",
-                    ".git",
-                    ".hg"
-                ]
-            }
+        "extensions": [
+          ".ps1",
+          ".psm1",
+          ".psd1"
         ]
+      }
+    ],
+    "grammars": [],
+    "configuration": {
+      "type": "object",
+      "title": "PowerShell Configuration",
+      "properties": {
+        "powershell.sideBar.CommandExplorerVisibility": {
+          "type": "boolean",
+          "default": true,
+          "description": "Specifies the visibility of the Command Explorer in the PowerShell Side Bar."
+        },
+        "powershell.sideBar.CommandExplorerExcludeFilter": {
+          "type": "array",
+          "default": [],
+          "description": "Specify array of Modules to exclude from Command Explorer listing."
+        },
+        "powershell.powerShellExePath": {
+          "type": "string",
+          "default": "",
+          "isExecutable": true,
+          "description": "Specifies the full path to a PowerShell executable. Changes the installation of PowerShell used for language and debugging services."
+        },
+        "powershell.powerShellAdditionalExePaths": {
+          "type": "array",
+          "description": "Specifies an array of versionName / exePath pairs where exePath points to a non-standard install location for PowerShell and versionName can be used to reference this path with the powershell.powerShellDefaultVersion setting.",
+          "isExecutable": true,
+          "uniqueItems": true,
+          "items": {
+            "type": "object",
+            "required": [
+              "versionName",
+              "exePath"
+            ],
+            "properties": {
+              "versionName": {
+                "type": "string",
+                "description": "Specifies the version name of this PowerShell executable. The version name can be referenced via the powershell.powerShellDefaultVersion setting."
+              },
+              "exePath": {
+                "type": "string",
+                "description": "Specifies the path to the PowerShell executable. Typically this is a path to a non-standard install location."
+              }
+            }
+          }
+        },
+        "powershell.powerShellDefaultVersion": {
+          "type": "string",
+          "description": "Specifies the PowerShell version name, as displayed by the 'PowerShell: Show Session Menu' command, used when the extension loads e.g \"Windows PowerShell (x86)\" or \"PowerShell Core 6 (x64)\"."
+        },
+        "powershell.startAutomatically": {
+          "type": "boolean",
+          "default": true,
+          "description": "Starts PowerShell extension features automatically when a PowerShell file opens. If false, to start the extension, use the 'PowerShell: Restart Current Session' command. IntelliSense, code navigation, integrated console, code formatting, and other features are not enabled until the extension starts."
+        },
+        "powershell.useX86Host": {
+          "type": "boolean",
+          "default": false,
+          "description": "Uses the 32-bit language service on 64-bit Windows. This setting has no effect on 32-bit Windows or on the PowerShell extension debugger, which has its own architecture configuration."
+        },
+        "powershell.enableProfileLoading": {
+          "type": "boolean",
+          "default": true,
+          "description": "Loads user and system-wide PowerShell profiles (profile.ps1 and Microsoft.VSCode_profile.ps1) into the PowerShell session. This affects IntelliSense and interactive script execution, but it does not affect the debugger."
+        },
+        "powershell.bugReporting.project": {
+          "type": "string",
+          "default": "https://github.com/PowerShell/vscode-powershell",
+          "description": "Specifies the url of the GitHub project in which to generate bug reports."
+        },
+        "powershell.helpCompletion": {
+          "type": "string",
+          "enum": [
+            "Disabled",
+            "BlockComment",
+            "LineComment"
+          ],
+          "default": "BlockComment",
+          "description": "Controls the comment-based help completion behavior triggered by typing '##'. Set the generated help style with 'BlockComment' or 'LineComment'. Disable the feature with 'Disabled'."
+        },
+        "powershell.scriptAnalysis.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enables real-time script analysis from PowerShell Script Analyzer. Uses the newest installed version of the PSScriptAnalyzer module or the version bundled with this extension, if it is newer."
+        },
+        "powershell.scriptAnalysis.settingsPath": {
+          "type": "string",
+          "default": "",
+          "description": "Specifies the path to a PowerShell Script Analyzer settings file. To override the default settings for all projects, enter an absolute path, or enter a path relative to your workspace."
+        },
+        "powershell.codeFolding.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "Enables syntax based code folding. When disabled, the default indentation based code folding is used."
+        },
+        "powershell.codeFolding.showLastLine": {
+          "type": "boolean",
+          "default": true,
+          "description": "Shows the last line of a folded section similar to the default VSCode folding style. When disabled, the entire folded region is hidden."
+        },
+        "powershell.codeFormatting.preset": {
+          "type": "string",
+          "enum": [
+            "Custom",
+            "Allman",
+            "OTBS",
+            "Stroustrup"
+          ],
+          "default": "Custom",
+          "description": "Sets the codeformatting options to follow the given indent style in a way that is compatible with PowerShell syntax. For more information about the brace styles please refer to https://github.com/PoshCode/PowerShellPracticeAndStyle/issues/81."
+        },
+        "powershell.codeFormatting.openBraceOnSameLine": {
+          "type": "boolean",
+          "default": true,
+          "description": "Places open brace on the same line as its associated statement."
+        },
+        "powershell.codeFormatting.newLineAfterOpenBrace": {
+          "type": "boolean",
+          "default": true,
+          "description": "Adds a newline (line break) after an open brace."
+        },
+        "powershell.codeFormatting.newLineAfterCloseBrace": {
+          "type": "boolean",
+          "default": true,
+          "description": "Adds a newline (line break) after a closing brace."
+        },
+        "powershell.codeFormatting.pipelineIndentationStyle": {
+          "type": "string",
+          "enum": [
+            "IncreaseIndentationForFirstPipeline",
+            "IncreaseIndentationAfterEveryPipeline",
+            "NoIndentation"
+          ],
+          "default": "NoIndentation",
+          "description": "Multi-line pipeline style settings."
+        },
+        "powershell.codeFormatting.whitespaceBeforeOpenBrace": {
+          "type": "boolean",
+          "default": true,
+          "description": "Adds a space between a keyword and its associated scriptblock expression."
+        },
+        "powershell.codeFormatting.whitespaceBeforeOpenParen": {
+          "type": "boolean",
+          "default": true,
+          "description": "Adds a space between a keyword (if, elseif, while, switch, etc) and its associated conditional expression."
+        },
+        "powershell.codeFormatting.whitespaceAroundOperator": {
+          "type": "boolean",
+          "default": true,
+          "description": "Adds spaces before and after an operator ('=', '+', '-', etc.)."
+        },
+        "powershell.codeFormatting.whitespaceAfterSeparator": {
+          "type": "boolean",
+          "default": true,
+          "description": "Adds a space after a separator (',' and ';')."
+        },
+        "powershell.codeFormatting.whitespaceInsideBrace": {
+          "type": "boolean",
+          "default": true,
+          "description": "Adds a space after an opening brace ('{') and before a closing brace ('}')."
+        },
+        "powershell.codeFormatting.whitespaceAroundPipe": {
+          "type": "boolean",
+          "default": true,
+          "description": "Adds a space before and after the pipeline operator ('|')."
+        },
+        "powershell.codeFormatting.ignoreOneLineBlock": {
+          "type": "boolean",
+          "default": true,
+          "description": "Does not reformat one-line code blocks, such as \"if (...) {...} else {...}\"."
+        },
+        "powershell.codeFormatting.alignPropertyValuePairs": {
+          "type": "boolean",
+          "default": true,
+          "description": "Align assignment statements in a hashtable or a DSC Configuration."
+        },
+        "powershell.codeFormatting.useCorrectCasing": {
+          "type": "boolean",
+          "default": false,
+          "description": "Use correct casing for cmdlets."
+        },
+        "powershell.integratedConsole.showOnStartup": {
+          "type": "boolean",
+          "default": true,
+          "description": "Shows the integrated console when the PowerShell extension is initialized."
+        },
+        "powershell.integratedConsole.focusConsoleOnExecute": {
+          "type": "boolean",
+          "default": true,
+          "description": "Switches focus to the console when a script selection is run or a script file is debugged. This is an accessibility feature. To disable it, set to false."
+        },
+        "powershell.debugging.createTemporaryIntegratedConsole": {
+          "type": "boolean",
+          "default": false,
+          "description": "Determines whether a temporary PowerShell Integrated Console is created for each debugging session, useful for debugging PowerShell classes and binary modules."
+        },
+        "powershell.developer.bundledModulesPath": {
+          "type": "string",
+          "description": "Specifies an alternate path to the folder containing modules that are bundled with the PowerShell extension (i.e. PowerShell Editor Services, PSScriptAnalyzer, Plaster)"
+        },
+        "powershell.developer.editorServicesLogLevel": {
+          "type": "string",
+          "enum": [
+            "Diagnostic",
+            "Verbose",
+            "Normal",
+            "Warning",
+            "Error"
+          ],
+          "default": "Normal",
+          "description": "Sets the logging verbosity level for the PowerShell Editor Services host executable.  Valid values are 'Diagnostic', 'Verbose', 'Normal', 'Warning', and 'Error'"
+        },
+        "powershell.developer.editorServicesWaitForDebugger": {
+          "type": "boolean",
+          "default": false,
+          "description": "Launches the language service with the /waitForDebugger flag to force it to wait for a .NET debugger to attach before proceeding."
+        },
+        "powershell.developer.featureFlags": {
+          "type": "array",
+          "default": null,
+          "description": "An array of strings that enable experimental features in the PowerShell extension."
+        },
+        "powershell.developer.powerShellExeIsWindowsDevBuild": {
+          "type": "boolean",
+          "default": false,
+          "description": "Indicates that the powerShellExePath points to a developer build of Windows PowerShell and configures it for development."
+        },
+        "powershell.developer.powerShellExePath": {
+          "type": "string",
+          "default": "",
+          "isExecutable": true,
+          "description": "Deprecated. Please use the 'powershell.powerShellExePath' setting instead"
+        }
+      }
     },
-    "scripts": {
-        "compile": "tsc -p ./",
-        "watch": "tsc -watch -p ./"
-    },
-    "extensionDependencies": [],
-    "dependencies": {
-        "coc-utils": "0.0.12"
-    },
-    "devDependencies": {
-        "@types/follow-redirects": "^1.8.0",
-        "@types/node": "~10.17.19",
-        "typescript": "~3.8.3",
-        "coc.nvim": "~0.0.77"
-    }
+    "rootPatterns": [
+      {
+        "filetype": "ps1",
+        "patterns": [
+          "*.ps1",
+          "*.psd1",
+          "*.psm1",
+          ".vim",
+          ".git",
+          ".hg"
+        ]
+      }
+    ]
+  },
+  "scripts": {
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./"
+  },
+  "extensionDependencies": [],
+  "dependencies": {
+    "coc-utils": "0.0.12"
+  },
+  "devDependencies": {
+    "@types/follow-redirects": "^1.8.0",
+    "@types/node": "~10.17.19",
+    "typescript": "~3.8.3",
+    "coc.nvim": "~0.0.77"
+  },
+  "bugs": {
+    "url": "https://github.com/mikeTWC1984/coc-powershell-patched/issues"
+  },
+  "homepage": "https://github.com/mikeTWC1984/coc-powershell-patched#readme"
 }
