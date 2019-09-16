@@ -6,6 +6,7 @@ import fs = require("fs");
 import path = require("path");
 import process = require("process");
 import Settings = require("./settings");
+import { IPlatformDetails, OperatingSystem } from 'coc-utils'
 
 const linuxExePath        = "/usr/bin/pwsh";
 const linuxPreviewExePath = "/usr/bin/pwsh-preview";
@@ -16,42 +17,9 @@ const snapPreviewExePath  = "/snap/bin/pwsh-preview";
 const macOSExePath        = "/usr/local/bin/pwsh";
 const macOSPreviewExePath = "/usr/local/bin/pwsh-preview";
 
-export enum OperatingSystem {
-    Unknown,
-    Windows,
-    MacOS,
-    Linux,
-}
-
-export interface IPlatformDetails {
-    operatingSystem: OperatingSystem;
-    isOS64Bit: boolean;
-    isProcess64Bit: boolean;
-}
-
 export interface IPowerShellExeDetails {
     versionName: string;
     exePath: string;
-}
-
-export function getPlatformDetails(): IPlatformDetails {
-    let operatingSystem = OperatingSystem.Unknown;
-
-    if (process.platform === "win32") {
-        operatingSystem = OperatingSystem.Windows;
-    } else if (process.platform === "darwin") {
-        operatingSystem = OperatingSystem.MacOS;
-    } else if (process.platform === "linux") {
-        operatingSystem = OperatingSystem.Linux;
-    }
-
-    const isProcess64Bit = process.arch === "x64";
-
-    return {
-        operatingSystem,
-        isOS64Bit: isProcess64Bit || process.env.hasOwnProperty("PROCESSOR_ARCHITEW6432"),
-        isProcess64Bit,
-    };
 }
 
 /**

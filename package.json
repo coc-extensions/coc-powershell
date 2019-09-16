@@ -313,7 +313,9 @@
         "watch": "tsc -watch -p ./"
     },
     "extensionDependencies": [],
-    "dependencies": {},
+    "dependencies": {
+        "coc-utils": "0.0.8"
+    },
     "devDependencies": {
         "@types/node": "^10.3.3",
         "typescript": "^3.5.2",

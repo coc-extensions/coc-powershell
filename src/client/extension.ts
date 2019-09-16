@@ -7,8 +7,8 @@
 import * as net from 'net';
 import { commands, workspace, ExtensionContext, events } from 'coc.nvim';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, StreamInfo } from 'coc.nvim';
-import { fileURLToPath } from './utils'
-import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
+import { fileURLToPath, getPlatformDetails } from 'coc-utils'
+import { getDefaultPowerShellPath } from './platform';
 import settings = require("./settings");
 import * as process from './process';
 import { EvaluateRequestMessage, IEvaluateRequestArguments } from "./messages";
