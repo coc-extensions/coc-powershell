@@ -12,6 +12,7 @@ import { getDefaultPowerShellPath, getPlatformDetails } from './platform';
 import settings = require("./settings");
 import * as process from './process';
 import { EvaluateRequestMessage, IEvaluateRequestArguments } from "./messages";
+import { DocumentFormatterFeature } from "./features/documentFormatting";
 
 async function getSelectedTextToExecute(mode: string): Promise<string> {
     let doc = workspace.getDocument(workspace.bufnr);
@@ -127,6 +128,10 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
         // Push the disposable to the context's subscriptions so that the 
         // client can be deactivated on extension deactivation
         context.subscriptions.push(disposable, cmdExecFile, cmdEvalLine, cmdEvalSelection);
+
+        let formatter = new DocumentFormatterFeature(null, client.clientOptions.documentSelector);
+        formatter.setLanguageClient(client);
+        context.subscriptions.push(formatter);
 
         return proc.onExited
     }
