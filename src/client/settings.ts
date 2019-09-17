@@ -6,6 +6,7 @@
 
 import vscode = require("coc.nvim");
 import utils = require("./utils");
+import { isWindowsOS } from 'coc-utils'
 
 enum CodeFormattingPreset {
     Custom,
@@ -118,7 +119,7 @@ export function load(): ISettings {
 
     // TODO: Remove when PSReadLine is out of preview
     const featureFlags = [];
-    if (utils.isWindowsOS()) {
+    if (isWindowsOS()) {
         featureFlags.push("PSReadLine");
     }
 
