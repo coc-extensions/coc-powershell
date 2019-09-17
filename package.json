@@ -314,7 +314,7 @@
     },
     "extensionDependencies": [],
     "dependencies": {
-        "coc-utils": "0.0.8"
+        "coc-utils": "0.0.9"
     },
     "devDependencies": {
         "@types/node": "^10.3.3",
