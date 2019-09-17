@@ -1,6 +1,7 @@
 # coc-powershell
 
 [![Build Status](https://v-yadli.visualstudio.com/coc-powershell/_apis/build/status/yatli.coc-powershell?branchName=master)](https://v-yadli.visualstudio.com/coc-powershell/_build/latest?definitionId=1&branchName=master)
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/821f104c56834a73acede8d387fc4c2b)](https://www.codacy.com/manual/coc-extensions/coc-powershell?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=coc-extensions/coc-powershell&amp;utm_campaign=Badge_Grade)
 ![npm](https://img.shields.io/npm/v/coc-powershell.svg)
 
 A vim plugin powered by
