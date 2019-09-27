@@ -121,9 +121,14 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
                 await workspace.nvim.command('w');
             }
 
+
+            let exeChar =  '&'
+            if (config.integratedConsole.executeInCurrentScope){exeChar = '.'}
+
             const evaluateArgs: IEvaluateRequestArguments = {
-                expression: `. '${filePath}'`,
+                expression: `${exeChar} '${filePath}'`,
             };
+
             await client.sendRequest(EvaluateRequestMessage, evaluateArgs);
             await proc.showTerminalIfNotVisible();
         })

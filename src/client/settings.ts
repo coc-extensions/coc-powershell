@@ -96,6 +96,7 @@ export interface ISettings {
 export interface IIntegratedConsoleSettings {
     showOnStartup?: boolean;
     focusConsoleOnExecute?: boolean;
+    executeInCurrentScope?: boolean;
 }
 
 export function load(): ISettings {
@@ -156,6 +157,7 @@ export function load(): ISettings {
     const defaultIntegratedConsoleSettings: IIntegratedConsoleSettings = {
         showOnStartup: true,
         focusConsoleOnExecute: true,
+        executeInCurrentScope: false,
     };
 
     return {
