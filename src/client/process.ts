@@ -122,7 +122,7 @@ export class PowerShellProcess {
         return this.sessionDetails
     }
 
-    public async showTerminalIfVisible() {
+    public async showTerminalIfNotVisible() {
         if (this.consoleTerminal) {
             const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnr})`) as number;
 
@@ -131,7 +131,7 @@ export class PowerShellProcess {
                 this.consoleTerminal.show();
             }
 
-            // this fill move cursor to consol after F5/F8
+            // this will move cursor to consol after F5/F8 if focusConsoleOnExecute is true
             if (this.config.integratedConsole.focusConsoleOnExecute) {
                this.consoleTerminal.show();
             }
