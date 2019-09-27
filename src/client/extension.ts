@@ -77,7 +77,7 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
             }
             client.sendRequest(EvaluateRequestMessage, evaluateArgs)
 
-            await proc.showTerminalIfVisible();
+            await proc.showTerminalIfNotVisible();
         }
 
 
@@ -125,7 +125,7 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
                 expression: `. '${filePath}'`,
             };
             await client.sendRequest(EvaluateRequestMessage, evaluateArgs);
-            await proc.showTerminalIfVisible();
+            await proc.showTerminalIfNotVisible();
         })
 
         // Push the disposable to the context's subscriptions so that the 
