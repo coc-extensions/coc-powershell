@@ -314,11 +314,11 @@
     },
     "extensionDependencies": [],
     "dependencies": {
-        "coc-utils": "0.0.8"
+        "coc-utils": "0.0.10"
     },
     "devDependencies": {
         "@types/node": "^10.3.3",
         "typescript": "^3.5.2",
-        "coc.nvim": "^0.0.72"
+        "coc.nvim": "^0.0.74"
     }
 }

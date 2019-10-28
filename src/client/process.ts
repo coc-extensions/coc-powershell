@@ -9,6 +9,7 @@ import vscode = require("coc.nvim");
 import Settings = require("./settings");
 import utils = require("./utils");
 import crypto = require("crypto");
+import { isWindowsOS } from 'coc-utils'
 
 export class PowerShellProcess {
     public static escapeSingleQuotes(pspath: string): string {
@@ -57,7 +58,7 @@ export class PowerShellProcess {
         let powerShellArgs: string[] = []
 
         // Only add ExecutionPolicy param on Windows
-        if (utils.isWindowsOS()) {
+        if (isWindowsOS()) {
             powerShellArgs.push("-ExecutionPolicy", "Bypass");
         }
 

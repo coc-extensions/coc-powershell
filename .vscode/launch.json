@@ -9,6 +9,13 @@
             "request": "attach",
             "name": "Attach by Process ID",
             "processId": "${command:PickProcess}"
+        },
+        {
+            "name": "PowerShell: Launch Current File",
+            "type": "PowerShell",
+            "request": "launch",
+            "script": "${file}",
+            "cwd": "${file}"
         }
     ]
 }
