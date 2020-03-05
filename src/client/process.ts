@@ -62,6 +62,11 @@ export class PowerShellProcess {
             powerShellArgs.push("-ExecutionPolicy", "Bypass");
         }
 
+        // Make sure the log directory exists. PowerShell Editor Services needs this at the moment.
+        if (!fs.existsSync(logDir)) {
+            fs.mkdirSync(logDir);
+        }
+
         powerShellArgs.push(
             "-NoProfile",
             "-NonInteractive",
