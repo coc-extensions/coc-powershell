@@ -5,7 +5,7 @@
     "author": "Yatao Li, Tyler Leonhardt, Cory Knox",
     "license": "MIT",
     "readme": "README.md",
-    "version": "0.0.21",
+    "version": "0.0.22",
     "publisher": "yatli, tylerl0706, corbob",
     "repository": {
         "type": "git",
@@ -314,7 +314,7 @@
     },
     "extensionDependencies": [],
     "dependencies": {
-        "coc-utils": "0.0.10"
+        "coc-utils": "0.0.12"
     },
     "devDependencies": {
         "@types/node": "^10.3.3",
