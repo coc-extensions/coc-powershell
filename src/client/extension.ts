@@ -8,10 +8,10 @@ import * as net from 'net';
 import { commands, workspace, ExtensionContext, events } from 'coc.nvim';
 import { LanguageClient, LanguageClientOptions, ServerOptions, TransportKind, StreamInfo } from 'coc.nvim';
 import { fileURLToPath, getPlatformDetails } from 'coc-utils'
-import { getDefaultPowerShellPath } from './platform';
 import settings = require("./settings");
 import * as process from './process';
 import { EvaluateRequestMessage, IEvaluateRequestArguments } from "./messages";
+import { PowerShellExeFinder, IPowerShellExeDetails } from './platform';
 
 async function getSelectedTextToExecute(mode: string): Promise<string> {
     let doc = workspace.getDocument(workspace.bufnr);
@@ -135,9 +135,32 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
 export async function activate(context: ExtensionContext) {
 
     let config = settings.load()
-    let pwshPath = config.powerShellExePath
-        ? config.powerShellExePath
-        : getDefaultPowerShellPath(getPlatformDetails())
+
+    const powershellExeFinder = new PowerShellExeFinder(
+        getPlatformDetails(),
+        config.powerShellAdditionalExePaths);
+
+    let pwshPath = config.powerShellExePath;
+
+    try {
+        if (config.powerShellDefaultVersion) {
+            for (const details of powershellExeFinder.enumeratePowerShellInstallations()) {
+                // Need to compare names case-insensitively, from https://stackoverflow.com/a/2140723
+                const wantedName = config.powerShellDefaultVersion;
+                if (wantedName.localeCompare(details.displayName, undefined, { sensitivity: "accent" }) === 0) {
+                    pwshPath = details.exePath;
+                    break;
+                }
+            }
+        }
+
+        pwshPath = pwshPath ||
+            powershellExeFinder.getFirstAvailablePowerShellInstallation().exePath;
+
+    } catch (e) {
+        this.log.writeError(`Error occurred while searching for a PowerShell executable:\n${e}`);
+        return;
+    }
 
     // Status bar entry showing PS version
     let versionBarItem = workspace.createStatusBarItem(0, {progress: false})

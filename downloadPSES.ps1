@@ -4,7 +4,7 @@ param(
 )
 if (!$IsCoreCLR) {
     # We only need to do this in Windows PowerShell.
-    [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
+    [Net.ServicePointManager]::SecurityProtocol = [Net.ServicePointManager]::SecurityProtocol -bor [Net.SecurityProtocolType]::Tls12
 }
 
 # Fail on anything
