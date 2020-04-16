@@ -314,7 +314,7 @@
     },
     "extensionDependencies": [],
     "dependencies": {
-        "coc-utils": "0.0.12"
+        "coc-utils": "0.0.13"
     },
     "devDependencies": {
         "@types/follow-redirects": "^1.8.0",
