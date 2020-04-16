@@ -28,12 +28,21 @@ if (!(Get-Command npm)) {
 }
 
 npm install
+if (!$?) {
+    throw "npm failed to install"
+}
 
 if ($Watch.IsPresent) {
     npm run watch
+    if (!$?) {
+        throw "npm failed to run"
+    }
     return
 } else {
     npm run compile
+    if (!$?) {
+        throw "npm failed to compile"
+    }
 }
 
 if ($Test.IsPresent) {
@@ -42,4 +51,9 @@ if ($Test.IsPresent) {
 
 if ($Pack.IsPresent) {
     npm pack
+    if (!$?) {
+        throw "npm failed to pack"
+    }
 }
+
+Write-Host "Completed!"
