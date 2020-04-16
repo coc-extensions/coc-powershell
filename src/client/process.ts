@@ -138,19 +138,27 @@ export class PowerShellProcess {
         }
     }
     
-    public async showTerminal() {this.consoleTerminal.show();}
-    public async hideTerminal() {this.consoleTerminal.hide();}
+    public showTerminal() {
+        this.consoleTerminal.show();
+    }
+
+    public hideTerminal() {
+        this.consoleTerminal.hide();
+    }
+
     public async toggleTerminal() {
             const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnr})`) as number;
             if (winid == -1) {
                 this.consoleTerminal.show();
-            } else { this.consoleTerminal.hide(); }
+            } else {
+                this.consoleTerminal.hide();
+            }
     } 
 
 
 
 
-    public  dispose() {
+    public dispose() {
 
         // Clean up the session file
         utils.deleteSessionFile(this.sessionFilePath);
