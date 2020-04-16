@@ -126,14 +126,10 @@ export class PowerShellProcess {
         if (this.consoleTerminal) {
             const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnr})`) as number;
 
-          // show terminal if hidded when running F5/F8
-            if (winid == -1) {
+            // Show terminal if it's hidden when running F5/F8 or if focusConsoleOnExecute,
+            // this will cause the cursor to jump down into the terminal.
+            if (this.config.integratedConsole.focusConsoleOnExecute || winid == -1) {
                 this.consoleTerminal.show();
-            }
-
-            // this will move cursor to consol after F5/F8 if focusConsoleOnExecute is true
-            if (this.config.integratedConsole.focusConsoleOnExecute) {
-               this.consoleTerminal.show();
             }
         }
     }
@@ -154,9 +150,6 @@ export class PowerShellProcess {
                 this.consoleTerminal.hide();
             }
     } 
-
-
-
 
     public dispose() {
 

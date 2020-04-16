@@ -254,6 +254,11 @@
                     "default": true,
                     "description": "Switches focus to the console when a script selection is run or a script file is debugged. This is an accessibility feature. To disable it, set to false."
                 },
+                "powershell.integratedConsole.executeInCurrentScope": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Decides whether or not to use the call operator `& script.ps1` (default) or the dot source operator `. script.ps1` to run the script using the `powershell.execute` command."
+                },
                 "powershell.debugging.createTemporaryIntegratedConsole": {
                     "type": "boolean",
                     "default": false,

@@ -81,9 +81,9 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
         }
 
 
-      let cmdShowTerminal = commands.registerCommand("powershell.showTerminal", proc.showTerminal);
-      let cmdHideTerminal = commands.registerCommand("powershell.hideTerminal",  proc.hideTerminal);
-      let cmdToggleTerminal = commands.registerCommand("powershell.toggleTerminal", proc.toggleTerminal);
+      let cmdShowTerminal = commands.registerCommand("powershell.showTerminal", () => proc.showTerminal());
+      let cmdHideTerminal = commands.registerCommand("powershell.hideTerminal",  () => proc.hideTerminal());
+      let cmdToggleTerminal = commands.registerCommand("powershell.toggleTerminal", () => proc.toggleTerminal());
 
         let cmdEvalLine = commands.registerCommand("powershell.evaluateLine", async () => doEval('n'));
         let cmdEvalSelection = commands.registerCommand("powershell.evaluateSelection", async () => doEval('v'));
@@ -121,10 +121,8 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
                 await workspace.nvim.command('w');
             }
 
-
-            let exeChar =  '&'
-            if (config.integratedConsole.executeInCurrentScope){exeChar = '.'}
-
+            const config = settings.load();
+            const exeChar = config.integratedConsole.executeInCurrentScope ? "." : "&";
             const evaluateArgs: IEvaluateRequestArguments = {
                 expression: `${exeChar} '${filePath}'`,
             };
