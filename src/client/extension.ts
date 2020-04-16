@@ -81,9 +81,9 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
         }
 
 
-      let cmdShowTerminal = commands.registerCommand("powershell.showTerminal", async () =>  proc.showTerminal());
-      let cmdHideTerminal = commands.registerCommand("powershell.hideTerminal",  async () => proc.hideTerminal());
-      let cmdToggleTerminal = commands.registerCommand("powershell.toggleTerminal", async () => proc.toggleTerminal());
+      let cmdShowTerminal = commands.registerCommand("powershell.showTerminal", proc.showTerminal);
+      let cmdHideTerminal = commands.registerCommand("powershell.hideTerminal",  proc.hideTerminal);
+      let cmdToggleTerminal = commands.registerCommand("powershell.toggleTerminal", proc.toggleTerminal);
 
         let cmdEvalLine = commands.registerCommand("powershell.evaluateLine", async () => doEval('n'));
         let cmdEvalSelection = commands.registerCommand("powershell.evaluateSelection", async () => doEval('v'));
