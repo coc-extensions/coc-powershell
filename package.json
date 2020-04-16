@@ -11,6 +11,10 @@
         "type": "git",
         "url": "https://github.com/yatli/coc-powershell"
     },
+    "bugs": {
+        "url": "https://github.com/mikeTWC1984/coc-powershell-patched/issues"
+    },
+    "homepage": "https://github.com/mikeTWC1984/coc-powershell-patched#readme",
     "engines": {
         "coc": ">=0.0.77"
     },
@@ -307,23 +311,19 @@
                 ]
             }
         ]
-  },
-  "scripts": {
-    "compile": "tsc -p ./",
-    "watch": "tsc -watch -p ./"
-  },
-  "extensionDependencies": [],
-  "dependencies": {
-    "coc-utils": "0.0.12"
-  },
-  "devDependencies": {
-    "@types/follow-redirects": "^1.8.0",
-    "@types/node": "~10.17.19",
-    "typescript": "~3.8.3",
-    "coc.nvim": "~0.0.77"
-  },
-  "bugs": {
-    "url": "https://github.com/mikeTWC1984/coc-powershell-patched/issues"
-  },
-  "homepage": "https://github.com/mikeTWC1984/coc-powershell-patched#readme"
+    },
+    "scripts": {
+        "compile": "tsc -p ./",
+        "watch": "tsc -watch -p ./"
+    },
+    "extensionDependencies": [],
+    "dependencies": {
+        "coc-utils": "0.0.12"
+    },
+    "devDependencies": {
+        "@types/follow-redirects": "^1.8.0",
+        "@types/node": "~10.17.19",
+        "typescript": "~3.8.3",
+        "coc.nvim": "~0.0.77"
+    }
 }
