@@ -12,7 +12,7 @@
         "url": "https://github.com/yatli/coc-powershell"
     },
     "engines": {
-        "coc": ">=0.0.71"
+        "coc": ">=0.0.77"
     },
     "keywords": [
         "pwsh",
@@ -317,8 +317,9 @@
         "coc-utils": "0.0.12"
     },
     "devDependencies": {
-        "@types/node": "^10.3.3",
-        "typescript": "^3.5.2",
-        "coc.nvim": "^0.0.74"
+        "@types/follow-redirects": "^1.8.0",
+        "@types/node": "~10.17.19",
+        "typescript": "~3.8.3",
+        "coc.nvim": "~0.0.77"
     }
 }
