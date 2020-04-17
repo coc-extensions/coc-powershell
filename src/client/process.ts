@@ -64,7 +64,9 @@ export class PowerShellProcess {
 
         // Make sure the log directory exists. PowerShell Editor Services needs this at the moment.
         if (!fs.existsSync(logDir)) {
-            fs.mkdirSync(logDir);
+            fs.mkdirSync(logDir, {
+                recursive: true
+            });
         }
 
         powerShellArgs.push(
