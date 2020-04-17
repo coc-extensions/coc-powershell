@@ -126,7 +126,7 @@ export class PowerShellProcess {
         if (this.consoleTerminal) {
             const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnr})`) as number;
 
-            // Show terminal if it's hidden when running F5/F8 or if focusConsoleOnExecute,
+            // Show terminal if it's hidden when running "execute" commands or if focusConsoleOnExecute,
             // this will cause the cursor to jump down into the terminal.
             if (this.config.integratedConsole.focusConsoleOnExecute || winid == -1) {
                 this.consoleTerminal.show();

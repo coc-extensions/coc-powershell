@@ -12,9 +12,9 @@
         "url": "https://github.com/yatli/coc-powershell"
     },
     "bugs": {
-        "url": "https://github.com/mikeTWC1984/coc-powershell-patched/issues"
+        "url": "https://github.com/coc-extensions/coc-powershell-patched/issues"
     },
-    "homepage": "https://github.com/mikeTWC1984/coc-powershell-patched#readme",
+    "homepage": "https://github.com/coc-extensions/coc-powershell-patched#readme",
     "engines": {
         "coc": ">=0.0.77"
     },
