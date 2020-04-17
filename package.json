@@ -5,12 +5,16 @@
     "author": "Yatao Li, Tyler Leonhardt, Cory Knox",
     "license": "MIT",
     "readme": "README.md",
-    "version": "0.0.22",
+    "version": "0.1.0",
     "publisher": "yatli, tylerl0706, corbob",
     "repository": {
         "type": "git",
-        "url": "https://github.com/yatli/coc-powershell"
+        "url": "https://github.com/coc-extensions/coc-powershell"
     },
+    "bugs": {
+        "url": "https://github.com/coc-extensions/coc-powershell/issues"
+    },
+    "homepage": "https://github.com/coc-extensions/coc-powershell#readme",
     "engines": {
         "coc": ">=0.0.77"
     },
@@ -249,6 +253,11 @@
                     "type": "boolean",
                     "default": true,
                     "description": "Switches focus to the console when a script selection is run or a script file is debugged. This is an accessibility feature. To disable it, set to false."
+                },
+                "powershell.integratedConsole.executeInCurrentScope": {
+                    "type": "boolean",
+                    "default": false,
+                    "description": "Decides whether or not to use the call operator `& script.ps1` (default) or the dot source operator `. script.ps1` to run the script using the `powershell.execute` command."
                 },
                 "powershell.debugging.createTemporaryIntegratedConsole": {
                     "type": "boolean",

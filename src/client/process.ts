@@ -122,16 +122,34 @@ export class PowerShellProcess {
         return this.sessionDetails
     }
 
-    public async showTerminalIfVisible() {
+    public async showTerminalIfNotVisible() {
         if (this.consoleTerminal) {
             const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnr})`) as number;
 
-            // If winid is -1, it means the window is not visible/is hidden.
-            if (winid > -1) {
-                this.consoleTerminal.show(!this.config.integratedConsole.focusConsoleOnExecute);
+            // Show terminal if it's hidden when running "execute" commands or if focusConsoleOnExecute,
+            // this will cause the cursor to jump down into the terminal.
+            if (this.config.integratedConsole.focusConsoleOnExecute || winid == -1) {
+                this.consoleTerminal.show();
             }
         }
     }
+    
+    public showTerminal() {
+        this.consoleTerminal.show();
+    }
+
+    public hideTerminal() {
+        this.consoleTerminal.hide();
+    }
+
+    public async toggleTerminal() {
+            const winid: number = await vscode.workspace.nvim.eval(`bufwinid(${this.consoleTerminal.bufnr})`) as number;
+            if (winid == -1) {
+                this.consoleTerminal.show();
+            } else {
+                this.consoleTerminal.hide();
+            }
+    } 
 
     public dispose() {
 

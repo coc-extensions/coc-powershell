@@ -77,9 +77,13 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
             }
             client.sendRequest(EvaluateRequestMessage, evaluateArgs)
 
-            await proc.showTerminalIfVisible();
+            await proc.showTerminalIfNotVisible();
         }
 
+
+      let cmdShowTerminal = commands.registerCommand("powershell.showTerminal", () => proc.showTerminal());
+      let cmdHideTerminal = commands.registerCommand("powershell.hideTerminal",  () => proc.hideTerminal());
+      let cmdToggleTerminal = commands.registerCommand("powershell.toggleTerminal", () => proc.toggleTerminal());
 
         let cmdEvalLine = commands.registerCommand("powershell.evaluateLine", async () => doEval('n'));
         let cmdEvalSelection = commands.registerCommand("powershell.evaluateSelection", async () => doEval('v'));
@@ -117,16 +121,19 @@ function startREPLProc(context: ExtensionContext, config: settings.ISettings, pw
                 await workspace.nvim.command('w');
             }
 
+            const config = settings.load();
+            const exeChar = config.integratedConsole.executeInCurrentScope ? "." : "&";
             const evaluateArgs: IEvaluateRequestArguments = {
-                expression: `& '${filePath}'`,
+                expression: `${exeChar} '${filePath}'`,
             };
+
             await client.sendRequest(EvaluateRequestMessage, evaluateArgs);
-            await proc.showTerminalIfVisible();
+            await proc.showTerminalIfNotVisible();
         })
 
         // Push the disposable to the context's subscriptions so that the 
         // client can be deactivated on extension deactivation
-        context.subscriptions.push(disposable, cmdExecFile, cmdEvalLine, cmdEvalSelection);
+        context.subscriptions.push(disposable, cmdExecFile, cmdEvalLine, cmdEvalSelection, cmdShowTerminal, cmdHideTerminal, cmdToggleTerminal );
 
         return proc.onExited
     }
