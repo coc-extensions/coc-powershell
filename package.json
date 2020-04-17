@@ -9,12 +9,12 @@
     "publisher": "yatli, tylerl0706, corbob",
     "repository": {
         "type": "git",
-        "url": "https://github.com/yatli/coc-powershell"
+        "url": "https://github.com/coc-extensions/coc-powershell"
     },
     "bugs": {
-        "url": "https://github.com/coc-extensions/coc-powershell-patched/issues"
+        "url": "https://github.com/coc-extensions/coc-powershell/issues"
     },
-    "homepage": "https://github.com/coc-extensions/coc-powershell-patched#readme",
+    "homepage": "https://github.com/coc-extensions/coc-powershell#readme",
     "engines": {
         "coc": ">=0.0.77"
     },
