@@ -327,7 +327,7 @@
     },
     "devDependencies": {
         "@types/follow-redirects": "^1.8.0",
-        "@types/node": "~10.17.19",
+        "@types/node": "~13.13.0",
         "typescript": "~3.8.3",
         "coc.nvim": "~0.0.77"
     }
