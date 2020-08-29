@@ -32,7 +32,9 @@
         "coc.nvim"
     ],
     "activationEvents": [
-        "onLanguage:ps1"
+        "onLanguage:ps1",
+        "onLanguage:powershell",
+        "onLanguage:pwsh"
     ],
     "main": "out/client/extension.js",
     "files": [
