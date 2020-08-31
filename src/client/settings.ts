@@ -42,6 +42,7 @@ export interface ICodeFoldingSettings {
 }
 
 export interface ICodeFormattingSettings {
+    autoCorrectAliases: boolean;
     preset: CodeFormattingPreset;
     openBraceOnSameLine: boolean;
     newLineAfterOpenBrace: boolean;
@@ -51,10 +52,13 @@ export interface ICodeFormattingSettings {
     whitespaceBeforeOpenParen: boolean;
     whitespaceAroundOperator: boolean;
     whitespaceAfterSeparator: boolean;
-    whitespaceInsideBrace: true;
-    whitespaceAroundPipe: true;
+    whitespaceBetweenParameters: boolean;
+    whitespaceInsideBrace: boolean;
+    addWhitespaceAroundPipe: boolean;
+    trimWhitespaceAroundPipe: boolean;
     ignoreOneLineBlock: boolean;
     alignPropertyValuePairs: boolean;
+    useConstantStrings: boolean;
     useCorrectCasing: boolean;
 }
 
@@ -139,6 +143,7 @@ export function load(): ISettings {
     };
 
     const defaultCodeFormattingSettings: ICodeFormattingSettings = {
+        autoCorrectAliases: false,
         preset: CodeFormattingPreset.Custom,
         openBraceOnSameLine: true,
         newLineAfterOpenBrace: true,
@@ -148,10 +153,13 @@ export function load(): ISettings {
         whitespaceBeforeOpenParen: true,
         whitespaceAroundOperator: true,
         whitespaceAfterSeparator: true,
+        whitespaceBetweenParameters: false,
         whitespaceInsideBrace: true,
-        whitespaceAroundPipe: true,
+        addWhitespaceAroundPipe: true,
+        trimWhitespaceAroundPipe: false,
         ignoreOneLineBlock: true,
         alignPropertyValuePairs: true,
+        useConstantStrings: false,
         useCorrectCasing: false,
     };
 
