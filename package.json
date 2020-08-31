@@ -34,6 +34,8 @@
     "activationEvents": [
         "onLanguage:ps1",
         "onLanguage:powershell",
+        "onLanguage:PowerShell",
+        "onLanguage:Powershell",
         "onLanguage:pwsh"
     ],
     "main": "out/client/extension.js",
