@@ -6,7 +6,7 @@
     "license": "MIT",
     "readme": "README.md",
     "version": "0.1.4",
-    "publisher": "yatli, tylerl0706, corbob",
+    "publisher": "yatli, tylerleonhardt, corbob",
     "repository": {
         "type": "git",
         "url": "https://github.com/coc-extensions/coc-powershell"
