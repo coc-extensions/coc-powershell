@@ -1,0 +1,15 @@
+version: 2
+updates:
+- package-ecosystem: npm
+  directory: "/"
+  schedule:
+    interval: weekly
+  open-pull-requests-limit: 10
+  ignore:
+  - dependency-name: "@types/node"
+    versions:
+    - "> 10.17.19"
+  - dependency-name: typescript
+    versions:
+    - 4.1.5
+    - 4.2.3
