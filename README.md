@@ -37,6 +37,18 @@ Alternatively, you can have `coc.nvim` automatically install the extension if it
 let g:coc_global_extensions=[ 'coc-powershell', ... ]
 ```
 
+## Configuration
+
+### Disable the integrated console
+
+You can disable the integrated console when a PowerShell file is opened by editing your `coc-settings.json` file and setting `powershell.integratedConsole.showOnStartup` to `false`.
+
+```json
+{
+    "powershell.integratedConsole.showOnStartup": false
+}
+```   
+
 ## Recommended plugins
 
 * [coc-snippets](https://github.com/neoclide/coc-snippets) Used to allow snippets [(requires neovim 0.4 or latest vim8)](https://github.com/neoclide/coc.nvim/wiki/F.A.Q#how-to-make-preview-window-shown-aside-with-pum).
